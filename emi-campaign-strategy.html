@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outstanding to EMI — Campaign Segmentation Strategy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      background: #f4f6f9;
+      color: #1a2332;
+      padding: 48px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      background: #0e1f38;
+      color: white;
+      border-radius: 12px;
+      padding: 56px 52px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 380px; height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(59,130,246,0.07) 100%);
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: 80px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cover-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cover-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .cover p {
+      font-size: 14.5px;
+      color: #94a3b8;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .cover-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #cbd5e1;
+      padding: 5px 13px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── Section Header Dividers ── */
+    .section-divider {
+      background: #0e1f38;
+      border-radius: 10px;
+      padding: 32px 40px;
+      margin-bottom: 24px;
+      color: white;
+    }
+    .section-divider .div-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 8px;
+    }
+    .section-divider h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+    .section-divider p {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    /* ── Cards ── */
+    .segment-card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e8edf3;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .segment-header {
+      padding: 22px 32px 18px;
+      border-bottom: 1px solid #eef1f6;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: #fcfdff;
+    }
+    .segment-badge {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+      color: white;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .badge-pb { background: #2563eb; }
+    .badge-nv { background: #7c3aed; }
+    .badge-hp { background: #0284c7; }
+    .badge-lp { background: #64748b; }
+
+    .segment-header-text h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0e1f38;
+      margin-bottom: 3px;
+      letter-spacing: -0.2px;
+    }
+    .segment-header-text p {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.55;
+    }
+
+    .segment-body { padding: 28px 32px; }
+
+    /* ── Stat Tiles (bank-card redesign) ── */
+    .bank-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .bank-card {
+      flex: 1;
+      min-width: 140px;
+      background: #f8faff;
+      border: 1px solid #dde6f5;
+      border-radius: 8px;
+      padding: 18px 20px;
+      text-align: left;
+    }
+    .bank-card .bank-name {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .bank-card .bank-conv {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0e1f38;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .bank-card .bank-conv span {
+      font-size: 16px;
+      color: #3b82f6;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+    .bank-card .bank-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    /* ── Sub-segment split ── */
+    .subseg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 640px) { .subseg-grid { grid-template-columns: 1fr; } }
+
+    .subseg-block {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e8edf3;
+    }
+    .subseg-header {
+      padding: 11px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .subseg-lc .subseg-header { background: #eff6ff; color: #1d4ed8; border-bottom: 1px solid #bfdbfe; }
+    .subseg-hc .subseg-header { background: #fefce8; color: #854d0e; border-bottom: 1px solid #fde68a; }
+    .subseg-body { padding: 14px 16px; background: #fafbfd; }
+
+    .subseg-conv-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .conv-chip {
+      background: white;
+      border: 1px solid #e8edf3;
+      border-radius: 6px;
+      padding: 8px 10px;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .conv-chip .chip-label { font-size: 10px; color: #94a3b8; font-weight: 600; letter-spacing: 0.5px; }
+    .conv-chip .chip-val { font-size: 18px; font-weight: 800; color: #0e1f38; letter-spacing: -0.5px; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 20px; border-radius: 8px; border: 1px solid #eef1f6; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead tr { background: #f4f7fd; }
+    thead th {
+      padding: 11px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11.5px;
+      letter-spacing: 0.4px;
+      color: #475569;
+      text-transform: uppercase;
+      border-bottom: 2px solid #dde6f5;
+    }
+    tbody tr { border-bottom: 1px solid #f1f5f9; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8faff; }
+    tbody td {
+      padding: 11px 16px;
+      vertical-align: top;
+      line-height: 1.55;
+      color: #374151;
+    }
+    td.conv-val { font-weight: 700; color: #0e1f38; }
+    td.conv-high { color: #16a34a; font-weight: 700; }
+    td.conv-mid  { color: #d97706; font-weight: 700; }
+    td.conv-low  { color: #dc2626; font-weight: 700; }
+
+    /* ── Insight Callouts ── */
+    .insight {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      border-radius: 0 6px 6px 0;
+      padding: 13px 18px;
+      font-size: 13px;
+      color: #15803d;
+      line-height: 1.65;
+    }
+    .insight strong { font-weight: 700; color: #166534; }
+
+    .insight-warn {
+      background: #fefce8;
+      border-left: 3px solid #eab308;
+      color: #854d0e;
+    }
+    .insight-warn strong { color: #713f12; }
+
+    /* ── Section Sub-Labels ── */
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin: 0 0 12px;
+    }
+
+    /* ── Criteria Number Badge ── */
+    .criteria-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 36px 28px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-top: 1px solid #e8edf3;
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 24px 14px; }
+      .cover { padding: 36px 28px; }
+      .cover h1 { font-size: 26px; }
+      .segment-body { padding: 20px 20px; }
+      .segment-header { padding: 18px 20px 14px; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .segment-card { box-shadow: none; break-inside: avoid; border: 1px solid #e8edf3; }
+      .cover { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-label">Operating Strategy</div>
+    <h1>Outstanding to EMI<br>Campaign Segmentation Framework</h1>
+    <p>A data-driven segmentation and prioritisation model for running high-performance Outstanding-to-EMI campaigns — built on propensity scoring, churn vintage, cross-product signals, and balance spike detection.</p>
+    <div class="cover-tags">
+      <span class="tag">STE — Statement to EMI</span>
+      <span class="tag">TTE — Transaction to EMI</span>
+      <span class="tag">4 Priority Segments</span>
+      <span class="tag">7 Sub-Category Signals</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ KEY CRITERIA ═══════════════════════ -->
+
+  <div class="section-divider">
+    <div class="div-eyebrow">Before We Segment</div>
+    <h2>What Drives Conversion — 4 Key Criteria</h2>
+    <p>Every segment in the framework is built on four underlying criteria that directly determine how likely a customer is to book an EMI. Before reading segment performance, it is essential to understand what each of these means and how strongly it moves conversion probability.</p>
+    <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;">
+      <div style="background:rgba(59,130,246,0.18);border:1px solid rgba(59,130,246,0.3);border-radius:6px;padding:6px 14px;font-size:11.5px;font-weight:600;color:#93c5fd;">01 &nbsp;Previously Booked</div>
+      <div style="background:rgba(16,185,129,0.18);border:1px solid rgba(16,185,129,0.3);border-radius:6px;padding:6px 14px;font-size:11.5px;font-weight:600;color:#6ee7b7;">02 &nbsp;CBOP</div>
+      <div style="background:rgba(245,158,11,0.18);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:6px 14px;font-size:11.5px;font-weight:600;color:#fcd34d;">03 &nbsp;Churn Vintage</div>
+      <div style="background:rgba(168,85,247,0.18);border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:6px 14px;font-size:11.5px;font-weight:600;color:#d8b4fe;">04 &nbsp;Balance Spike</div>
+    </div>
+  </div>
+
+  <!-- ── Criteria 1: Previously Booked ── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#2563eb;">01</div>
+      <div class="segment-header-text">
+        <h2>Previously Booked (PB)</h2>
+        <p>A customer who has converted an Outstanding-to-EMI offer at least once before. Prior booking is the single strongest predictor of future EMI conversion across the entire base.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:20px;">
+        When a customer has booked an EMI before, they have already cleared the highest barriers: understanding the product, trusting the process, and committing to a repayment structure. The cognitive effort required to book again is dramatically lower. Every additional booking reinforces the habit and deepens familiarity — making previously booked customers the highest-yield group in any campaign.
+      </p>
+
+      <p class="section-label">Conversion Impact — Frequency &amp; Recency of Prior Bookings</p>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Condition</th>
+              <th>Conversion vs Average</th>
+              <th>What It Tells Us</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frequency</strong></td>
+              <td>Booked once before</td>
+              <td class="conv-mid">2X</td>
+              <td>Familiar with the product; barrier to re-booking is lower</td>
+            </tr>
+            <tr>
+              <td><strong>Frequency</strong></td>
+              <td>Booked twice before</td>
+              <td class="conv-high">4X</td>
+              <td>Established habit — EMI is part of their financial behaviour</td>
+            </tr>
+            <tr>
+              <td><strong>Frequency</strong></td>
+              <td>Booked 3 or more times</td>
+              <td class="conv-high" style="font-size:15px;">5X</td>
+              <td>Repeat bookers are the most reliable converters in the entire base</td>
+            </tr>
+            <tr style="background:#eff6ff;">
+              <td><strong>Recency</strong></td>
+              <td>Last booking within 3 months</td>
+              <td class="conv-high" style="font-size:15px;">5X</td>
+              <td>Currently in an active repayment mindset — highest urgency window</td>
+            </tr>
+            <tr>
+              <td><strong>Recency</strong></td>
+              <td>Last booking 3–6 months ago</td>
+              <td class="conv-mid">3X</td>
+              <td>Recent enough to remember the experience; still warm</td>
+            </tr>
+            <tr>
+              <td><strong>Recency</strong></td>
+              <td>Last booking 6+ months ago</td>
+              <td class="conv-mid">1.5X</td>
+              <td>Signal fades with time — needs a stronger trigger to re-engage</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        <div style="background:#eff6ff;border-radius:10px;padding:14px 18px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:#1d4ed8;letter-spacing:1px;margin-bottom:6px;">PORTFOLIO 1</div>
+          <div style="font-size:30px;font-weight:800;color:#1e3a5f;">4X</div>
+          <div style="font-size:11px;color:#64748b;margin-top:3px;">vs base average</div>
+        </div>
+        <div style="background:#eff6ff;border-radius:10px;padding:14px 18px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:#1d4ed8;letter-spacing:1px;margin-bottom:6px;">PORTFOLIO 2</div>
+          <div style="font-size:30px;font-weight:800;color:#1e3a5f;">3X</div>
+          <div style="font-size:11px;color:#64748b;margin-top:3px;">vs base average</div>
+        </div>
+        <div style="background:#eff6ff;border-radius:10px;padding:14px 18px;text-align:center;">
+          <div style="font-size:11px;font-weight:700;color:#1d4ed8;letter-spacing:1px;margin-bottom:6px;">PORTFOLIO 3</div>
+          <div style="font-size:30px;font-weight:800;color:#1e3a5f;">3X</div>
+          <div style="font-size:11px;color:#64748b;margin-top:3px;">vs base average</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Criteria 2: CBOP ── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#059669;">02</div>
+      <div class="segment-header-text">
+        <h2>CBOP — Customer Booked Other Product</h2>
+        <p>A customer who has booked any other Creditas product (personal loan, credit limit increase, etc.) in addition to their credit card. Cross-product activity is a strong proxy for financial engagement and buying intent.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:20px;">
+        Booking another financial product is a meaningful behavioural signal — it tells us the customer is actively engaged with the bank, comfortable making financial decisions, and has already cleared the trust and process barriers. The more products they have booked, and the more recently they booked them, the higher the probability they will convert an EMI offer.
+      </p>
+
+      <p class="section-label">Probability to Book — By CBOP Count &amp; Recency</p>
+      <p style="font-size:13px;color:#64748b;margin-bottom:14px;line-height:1.6;">Absolute conversion probability (i.e. the likelihood a customer actually books) by number of other products booked and recency of the most recent cross-product booking. Base pool average is ~10–12%.</p>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table>
+          <thead>
+            <tr>
+              <th>CBOP Count</th>
+              <th style="text-align:center;">Recency &lt;3 Months</th>
+              <th style="text-align:center;">Recency 3–6 Months</th>
+              <th style="text-align:center;">Recency 6M+</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1 other product booked</strong></td>
+              <td style="text-align:center;" class="conv-high">43%</td>
+              <td style="text-align:center;" class="conv-mid">34%</td>
+              <td style="text-align:center;" class="conv-low">13%</td>
+            </tr>
+            <tr>
+              <td><strong>2 other products booked</strong></td>
+              <td style="text-align:center;" class="conv-high">45%</td>
+              <td style="text-align:center;" class="conv-mid">37%</td>
+              <td style="text-align:center;" class="conv-low">18%</td>
+            </tr>
+            <tr style="background:#f0fdf4;">
+              <td><strong>2+ other products booked</strong></td>
+              <td style="text-align:center;font-size:17px;" class="conv-high">56%</td>
+              <td style="text-align:center;font-size:16px;" class="conv-mid">46%</td>
+              <td style="text-align:center;" class="conv-low">23%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">
+        <strong>Key Takeaway:</strong> A customer with 2+ cross-product bookings in the last 3 months carries a <strong>56% conversion probability</strong> — roughly 5× the base average. Recency decay is steep: the same customer at 6M+ recency drops to 23%. <strong>The 3-month recency window is critical — act within it or the signal loses most of its power.</strong>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Criteria 3: Churn Vintage ── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#b45309;">03</div>
+      <div class="segment-header-text">
+        <h2>Churn Vintage — Campaign Fatigue</h2>
+        <p>Churn Vintage (C-score) measures how many times a customer has been contacted in the last 6 months without booking. It is a direct measure of campaign fatigue and a critical modifier of any segment's conversion probability.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:20px;">
+        The more times a customer is contacted without responding, the more desensitised they become to future outreach. A customer's C-score determines not just how likely they are to convert, but whether it is worth sending to them at all. Ignoring churn vintage inflates send volumes, distorts funnel metrics, and trains customers to tune out — compounding the problem over time.
+      </p>
+
+      <p class="section-label">Conversion Impact by Churn Vintage (C-Score)</p>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table>
+          <thead>
+            <tr>
+              <th>C-Score</th>
+              <th>Definition</th>
+              <th>Conversion vs Average</th>
+              <th>Recommended Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f0fdf4;">
+              <td><strong>C0</strong></td>
+              <td>No prior campaign touches this cycle — fresh to outreach</td>
+              <td class="conv-high">5X</td>
+              <td>Standard cadence. No special treatment needed — naturally high conversion.</td>
+            </tr>
+            <tr>
+              <td><strong>C1 – C3</strong></td>
+              <td>Less than 25% of the Average Churn</td>
+              <td class="conv-mid">3X</td>
+              <td>Continue. Monitor for CBOP or Spike re-activation signal.</td>
+            </tr>
+            <tr>
+              <td><strong>C4 – C6</strong></td>
+              <td>Between 25–50% of average churn</td>
+              <td class="conv-mid">1.5X</td>
+              <td>Refresh channel mix. Introduce offer incentive (reduced fee, cashback).</td>
+            </tr>
+            <tr style="background:#fef2f2;">
+              <td><strong>C7+</strong></td>
+              <td>Greater than average churn</td>
+              <td class="conv-low">~0.5X</td>
+              <td>Suppress. Re-enter only on strong re-activation signal (CBOP &lt;3M or Spike2).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:#fef9c3;border-left:4px solid #ca8a04;border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;color:#713f12;line-height:1.6;">
+          <strong>The fatigue trap:</strong> Every unnecessary send at C4+ actively trains the customer to ignore future communications, making re-activation progressively more expensive. The cost is not just one wasted send — it is a compounding suppression effect.
+        </div>
+        <div style="background:#f0fdf4;border-left:4px solid #16a34a;border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;color:#166534;line-height:1.6;">
+          <strong>Re-activation:</strong> A C7+ customer who receives a fresh CBOP (&lt;3M) or Spike2 signal should be re-entered with a fully refreshed channel, message, and offer — treated as C0 for that specific trigger event.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Criteria 4: Spike ── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#7c3aed;">04</div>
+      <div class="segment-header-text">
+        <h2>Balance Spike — Event-Based Trigger</h2>
+        <p>A Spike is a sudden increase in a customer's outstanding balance relative to their 3-month rolling average. Unlike the other criteria, Spike is a real-time event — not a static attribute — creating a time-sensitive window of peak conversion intent.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p style="font-size:13.5px;color:#475569;line-height:1.7;margin-bottom:20px;">
+        When a customer sees their outstanding balance jump sharply above normal, the psychological pressure to manage it is at its highest. This is the optimal moment to present an EMI option — the customer is already thinking about their balance, and the offer lands as a solution rather than a sales pitch. Spike campaigns triggered within 24–48 hours of the event consistently outperform all scheduled outreach.
+      </p>
+
+      <p class="section-label">Conversion Impact by Spike Category</p>
+      <div class="table-wrap" style="margin-bottom:20px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Spike Category</th>
+              <th>Balance Increase vs Rolling Avg</th>
+              <th>Conversion vs Average</th>
+              <th>Why It Converts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Spike 3</strong></td>
+              <td>Below 100% above average</td>
+              <td class="conv-mid">1.5X – 3X</td>
+              <td>Some urgency present, but the balance increase may not feel large enough to prompt immediate action.</td>
+            </tr>
+            <tr style="background:#f5f3ff;">
+              <td><strong>Spike 2 ⭐</strong></td>
+              <td>100% – 200% above average</td>
+              <td style="color:#15803d;font-weight:800;font-size:15px;">3X – 6X</td>
+              <td><strong>The sweet spot.</strong> Large enough to create genuine urgency; manageable enough that EMI feels like a real, actionable solution. Highest converter across all segments.</td>
+            </tr>
+            <tr>
+              <td><strong>Spike 1</strong></td>
+              <td>Above 200% above average</td>
+              <td class="conv-high">4X – 5X</td>
+              <td>Very high urgency, but extreme balances can trigger anxiety or avoidance — slightly lower conversion than Spike 2.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:#f5f3ff;border-left:4px solid #7c3aed;border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;color:#3b0764;line-height:1.6;">
+          <strong>Spike 2 is the sweet spot across all segments.</strong> A 100–200% spike creates real pressure without overwhelming the customer. Beyond 200% (Spike 1), some customers mentally "freeze" and defer the decision — reducing conversion despite higher urgency.
+        </div>
+        <div style="background:#fdf4ff;border-left:4px solid #9333ea;border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;color:#581c87;line-height:1.6;">
+          <strong>Spike amplifies every segment.</strong> Any customer — PB, NV, HP, or LP — becomes significantly more responsive during an active Spike event. Campaigns fired within 24–48 hours of the Spike event capture the intent window at its peak.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ SEGMENT FRAMEWORK ═══════════════════════ -->
+  <div class="section-divider">
+    <div class="div-eyebrow">Segment Framework</div>
+    <h2>4-Segment Prioritisation Model</h2>
+    <p>Every customer in the addressable base is classified into one of four priority segments. Each segment receives a differentiated treatment strategy based on its conversion profile and the key criteria signals active for that customer.</p>
+  </div>
+
+  <!-- ───────────────────────── PB ───────────────────────── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge badge-pb">PB</div>
+      <div class="segment-header-text">
+        <h2>Previously Booked — Same Product</h2>
+        <p>Customers who have previously converted an Outstanding-to-EMI offer. Highest-intent, highest-familiarity segment in the entire base.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p class="section-label">Conversion vs Average — By Portfolio</p>
+      <div class="bank-row">
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 1</div>
+          <div class="bank-conv">4<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 2</div>
+          <div class="bank-conv">3<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 3</div>
+          <div class="bank-conv">3<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+      </div>
+
+      <p class="section-label">Sub-Category Conversion Framework</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sub-Category</th>
+              <th>What We Track</th>
+              <th>Conversion vs Average</th>
+              <th>Prioritisation Logic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frequency</strong></td>
+              <td>Number of times previously booked</td>
+              <td class="conv-val">1× → 2X &nbsp;|&nbsp; 2× → 4X &nbsp;|&nbsp; >2× → <span class="conv-high">5X</span></td>
+              <td>Repeat bookers get top-of-allocation, first-touch priority</td>
+            </tr>
+            <tr>
+              <td><strong>Recency</strong></td>
+              <td>Days since last booking</td>
+              <td class="conv-high">< 3 months → 5X</td>
+              <td>Recent bookers are in active repayment mindset — highest urgency</td>
+            </tr>
+            <tr>
+              <td><strong>Churn Vintage</strong></td>
+              <td>Campaign touches in last 6 months with no re-booking</td>
+              <td class="conv-val">C0 → <span class="conv-high">5X</span> &nbsp;|&nbsp; C1–C3 → 3X &nbsp;|&nbsp; >C3 → <span class="conv-mid">1.5X</span></td>
+              <td>C0 gets standard cadence; >C3 triggers offer/channel refresh</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Signal</strong></td>
+              <td>Booked any other product (loan, CLI, etc.)</td>
+              <td class="conv-high">3X</td>
+              <td>Proven buyers — shorter message, faster CTA</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Depth</strong></td>
+              <td>Count of other product bookings</td>
+              <td class="conv-val">1× → 2X &nbsp;|&nbsp; 2× → 3X &nbsp;|&nbsp; >2× → <span class="conv-high">5X</span></td>
+              <td>High cross-product activity = financially engaged, high receptivity</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Recency</strong></td>
+              <td>Days since other product was booked</td>
+              <td class="conv-high">< 3 months → 4X</td>
+              <td>Peak re-engagement window — strike while intent is warm</td>
+            </tr>
+            <tr>
+              <td><strong>Spike Category</strong></td>
+              <td>Balance spike vs rolling average</td>
+              <td class="conv-val">Spike3 → 3X &nbsp;|&nbsp; Spike1 → 5X &nbsp;|&nbsp; Spike2 → <span class="conv-high">6X</span></td>
+              <td>Spike2 (100–200%) is the sweet spot — large enough to feel, manageable enough to act</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">
+        <strong>Key Insight:</strong> Spike2 customers outperform even Spike1 — extreme spikes (&gt;200%) may cause anxiety and inaction, while moderate spikes create the strongest conversion trigger. Churn Vintage C0 and Recency &lt;3 months are equally powerful standalone signals.
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── NV ───────────────────────── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge badge-nv">NV</div>
+      <div class="segment-header-text">
+        <h2>New Vintage</h2>
+        <p>Fresh customers with the bank, being introduced to the Outstanding-to-EMI product for the first time. High receptivity driven by novelty and early engagement.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p class="section-label">Conversion vs Average — By Portfolio</p>
+      <div class="bank-row">
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 1</div>
+          <div class="bank-conv">3<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 2</div>
+          <div class="bank-conv">3<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+        <div class="bank-card">
+          <div class="bank-name">Portfolio 3</div>
+          <div class="bank-conv">3.5<span>X</span></div>
+          <div class="bank-label">vs average</div>
+        </div>
+      </div>
+
+      <p class="section-label">Sub-Category Conversion Framework</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sub-Category</th>
+              <th>What We Track</th>
+              <th>Conversion vs Average</th>
+              <th>Prioritisation Logic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vintage with Bank</strong></td>
+              <td>How long customer has been with the bank</td>
+              <td class="conv-val">< 3 months → <span class="conv-high">5X</span> &nbsp;|&nbsp; 3–6 months → <span class="conv-mid">2.5X</span></td>
+              <td>First offer must land in months 1–3 — the earliest window is the highest-converting</td>
+            </tr>
+            <tr>
+              <td><strong>Vintage with Creditas</strong></td>
+              <td>First-time exposure to campaign engine</td>
+              <td class="conv-high">V0 (First Time) → 5X</td>
+              <td>First-touch customers are highly responsive — clean, simple, benefit-led messaging</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Signal</strong></td>
+              <td>Booked any other product</td>
+              <td class="conv-high">3X</td>
+              <td>Even in new vintage, cross-product activity signals financial engagement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">
+        <strong>Key Insight:</strong> New customers in their first 3 months are at peak receptivity — still forming habits and exploring product features. This is the single best window to establish EMI as a default behaviour. Delay beyond 6 months and the conversion advantage halves.
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── HP ───────────────────────── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge badge-hp">HP</div>
+      <div class="segment-header-text">
+        <h2>High Propensity</h2>
+        <p>Customers identified as high-intent via propensity scores from the bank or internal model. Split by churn behaviour — treatment must differ significantly between LP_LC and HP_HC.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p class="section-label">Conversion vs Average — By Portfolio & Sub-Segment</p>
+      <div class="subseg-grid">
+        <div class="subseg-block subseg-lc">
+          <div class="subseg-header">HP_LC — High Propensity, Low Churn</div>
+          <div class="subseg-body">
+            <div class="subseg-conv-row">
+              <div class="conv-chip"><div class="chip-label">Portfolio 1</div><div class="chip-val">3X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 2</div><div class="chip-val">2.5X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 3</div><div class="chip-val">3X</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="subseg-block subseg-hc">
+          <div class="subseg-header">HP_HC — High Propensity, High Churn</div>
+          <div class="subseg-body">
+            <div class="subseg-conv-row">
+              <div class="conv-chip"><div class="chip-label">Portfolio 1</div><div class="chip-val">1.5X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 2</div><div class="chip-val">2X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 3</div><div class="chip-val">1.5X</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">Sub-Category Conversion — HP_LC</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Sub-Category</th><th>Conversion vs Average</th><th>Prioritisation Logic</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cross-Product Signal</strong></td>
+              <td class="conv-high">3X</td>
+              <td>High propensity + cross-product booking = strongest combined signal</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Depth</strong></td>
+              <td class="conv-val">1× → 2X &nbsp;|&nbsp; 2× → 3X &nbsp;|&nbsp; >2× → <span class="conv-high">4X</span></td>
+              <td>Engagement depth amplifies propensity score significantly</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Recency</strong></td>
+              <td class="conv-high">< 3 months → 4X</td>
+              <td>Recent cross-product activity confirms active buying window</td>
+            </tr>
+            <tr>
+              <td><strong>Spike Category</strong></td>
+              <td class="conv-val">Spike3 → 1.5X &nbsp;|&nbsp; Spike1 → <span class="conv-high">4X</span> &nbsp;|&nbsp; Spike2 → <span class="conv-high">4X</span></td>
+              <td>Both Spike1 and Spike2 perform equally — any significant balance event is a trigger</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="section-label" style="margin-top:20px;">Sub-Category Conversion — HP_HC</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Sub-Category</th><th>Conversion vs Average</th><th>Prioritisation Logic</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cross-Product Signal</strong></td>
+              <td class="conv-mid">2X</td>
+              <td>Propensity diluted by churn history — cross-product activity partially restores signal</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Depth</strong></td>
+              <td class="conv-val">1× → 1.5X &nbsp;|&nbsp; 2× → 1.5X &nbsp;|&nbsp; >2× → <span class="conv-mid">3X</span></td>
+              <td>Only high cross-product frequency meaningfully lifts conversion</td>
+            </tr>
+            <tr>
+              <td><strong>Cross-Product Recency</strong></td>
+              <td class="conv-mid">< 3 months → 3X</td>
+              <td>Recency is the most reliable single trigger for this sub-segment</td>
+            </tr>
+            <tr>
+              <td><strong>Spike Category</strong></td>
+              <td class="conv-val">Spike3 → 1.2X &nbsp;|&nbsp; Spike1 → 2.5X &nbsp;|&nbsp; Spike2 → <span class="conv-mid">3X</span></td>
+              <td>Spike2 outperforms Spike1 — same moderate-spike sweet spot as in PB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>Key Insight:</strong> HP_HC customers have propensity but have historically not acted. Cross-product recency and Spike2 are the two most reliable activation triggers for this sub-segment — without these signals, campaign investment on HP_HC should be moderated.
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── LP ───────────────────────── -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge badge-lp">LP</div>
+      <div class="segment-header-text">
+        <h2>Low Propensity</h2>
+        <p>Customers with low propensity scores from the bank or internal model. Churn behaviour is the critical differentiator that determines whether any campaign investment is justified.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <p class="section-label">Conversion vs Average — By Portfolio & Sub-Segment</p>
+      <div class="subseg-grid">
+        <div class="subseg-block subseg-lc">
+          <div class="subseg-header">LP_LC — Low Propensity, Low Churn</div>
+          <div class="subseg-body">
+            <div class="subseg-conv-row">
+              <div class="conv-chip"><div class="chip-label">Portfolio 1</div><div class="chip-val">1.5X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 2</div><div class="chip-val">1.5X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 3</div><div class="chip-val">1.5X</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="subseg-block subseg-hc">
+          <div class="subseg-header">LP_HC — Low Propensity, High Churn</div>
+          <div class="subseg-body">
+            <div class="subseg-conv-row">
+              <div class="conv-chip"><div class="chip-label">Portfolio 1</div><div class="chip-val">0.2X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 2</div><div class="chip-val">0.15X</div></div>
+              <div class="conv-chip"><div class="chip-label">Portfolio 3</div><div class="chip-val">0.15X</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">Recommended Treatment</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Sub-Segment</th><th>Conversion vs Average</th><th>Recommended Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>LP_LC</strong></td>
+              <td class="conv-mid">1.5X (consistent across all portfolios)</td>
+              <td>Include in campaigns — low-cost channels only; no premium channel spend</td>
+            </tr>
+            <tr>
+              <td><strong>LP_HC</strong></td>
+              <td class="conv-low">0.15X – 0.2X (below baseline)</td>
+              <td>Suppress from active campaigns; re-evaluate after 3-month cooling period</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight insight-warn">
+        <strong>Key Insight:</strong> LP_HC is the only segment in the framework that converts <em>below</em> the base average. Continuing to campaign this group inflates send volumes, distorts funnel metrics, and burns channel frequency caps that could be used on higher-value segments. Suppression is the optimal action.
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-header-text">
+        <h2>Segment Priority Summary</h2>
+        <p>Ranked view of all segments and sub-segments by peak conversion potential</p>
+      </div>
+    </div>
+    <div class="segment-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Rank</th><th>Segment</th><th>Sub-Segment</th><th>Peak Conversion</th><th>Best Signal</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><strong>PB</strong></td><td>Spike2 + Frequency >2</td><td class="conv-high">6X</td><td>Balance spike 100–200% + repeat booker</td></tr>
+            <tr><td>2</td><td><strong>PB</strong></td><td>Recency + Churn C0</td><td class="conv-high">5X</td><td>Booked within last 3 months, no churn</td></tr>
+            <tr><td>3</td><td><strong>NV</strong></td><td>Vintage &lt;3M + V0</td><td class="conv-high">5X</td><td>New to bank + first campaign ever</td></tr>
+            <tr><td>4</td><td><strong>HP_LC</strong></td><td>Spike1 / Spike2</td><td class="conv-high">4X</td><td>Balance spike with low churn history</td></tr>
+            <tr><td>5</td><td><strong>HP_LC</strong></td><td>Cross-Product Recency</td><td class="conv-high">4X</td><td>Recent cross-product booking &lt;3 months</td></tr>
+            <tr><td>6</td><td><strong>HP_HC</strong></td><td>Spike2</td><td class="conv-mid">3X</td><td>Moderate balance spike — best trigger for churners</td></tr>
+            <tr><td>7</td><td><strong>NV</strong></td><td>Vintage 3–6M</td><td class="conv-mid">2.5X</td><td>Still within engagement window</td></tr>
+            <tr><td>8</td><td><strong>LP_LC</strong></td><td>—</td><td class="conv-mid">1.5X</td><td>Low cost, steady performer</td></tr>
+            <tr><td>9</td><td><strong>HP_HC</strong></td><td>Low cross-product depth</td><td class="conv-mid">1.5X</td><td>Minimal signals present</td></tr>
+            <tr><td>10</td><td><strong>LP_HC</strong></td><td>—</td><td class="conv-low">0.15–0.2X</td><td>Suppress — below average baseline</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ CAMPAIGN STRATEGY ═══════════════════════ -->
+
+  <div class="section-divider">
+    <div class="div-eyebrow">Campaign Execution</div>
+    <h2>Campaign Strategy — Two-Fold Approach</h2>
+    <p>A dual-engine model combining high-volume digital automation with personalised call centre intervention — maximising reach efficiency while protecting conversion quality at every stage of the journey.</p>
+    <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+      <div style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.28);border-radius:8px;padding:13px 20px;flex:1;min-width:180px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#93c5fd;margin-bottom:5px;">PILLAR 1</div>
+        <div style="font-size:14px;font-weight:700;">Digital Campaigning</div>
+        <div style="font-size:11.5px;color:#94a3b8;margin-top:3px;">Major volume driver · Entire base targeting</div>
+      </div>
+      <div style="background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.28);border-radius:8px;padding:13px 20px;flex:1;min-width:180px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#d8b4fe;margin-bottom:5px;">PILLAR 2</div>
+        <div style="font-size:14px;font-weight:700;">Call Centre</div>
+        <div style="font-size:11.5px;color:#94a3b8;margin-top:3px;">Drop-off recovery · Personalised PB servicing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 1: Digital Campaigning -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#2563eb;">D1</div>
+      <div class="segment-header-text">
+        <h2>Pillar 1 — Digital Campaigning</h2>
+        <p>High-volume, segment-intelligent digital outreach across multiple channels. Cost-efficient by design — spend is calibrated to segment yield, not base size.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <!-- Channel Grid -->
+      <p class="section-label">Channel Arsenal</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px;">
+
+        <div style="border:1px solid #bfdbfe;border-radius:10px;overflow:hidden;">
+          <div style="background:#eff6ff;padding:10px 16px;font-size:12px;font-weight:700;color:#1d4ed8;">WhatsApp</div>
+          <div style="padding:12px 16px;font-size:12px;color:#475569;line-height:1.6;">Rich media, interactive CTAs, conversational re-engagement. Highest open rates in the channel mix.</div>
+        </div>
+
+        <div style="border:1px solid #d1fae5;border-radius:10px;overflow:hidden;">
+          <div style="background:#f0fdf4;padding:10px 16px;font-size:12px;font-weight:700;color:#166534;">Email</div>
+          <div style="padding:12px 16px;font-size:12px;color:#475569;line-height:1.6;">Detailed offer communication, EMI calculators, statement summaries. Ideal for high-ticket STE nudges.</div>
+        </div>
+
+        <div style="border:1px solid #ede9fe;border-radius:10px;overflow:hidden;">
+          <div style="background:#f5f3ff;padding:10px 16px;font-size:12px;font-weight:700;color:#6d28d9;">RCS</div>
+          <div style="padding:12px 16px;font-size:12px;color:#475569;line-height:1.6;">Carousel of eligible transactions for TTE. Native app experience inside the SMS inbox.</div>
+        </div>
+
+        <div style="border:1px solid #fde68a;border-radius:10px;overflow:hidden;">
+          <div style="background:#fffbeb;padding:10px 16px;font-size:12px;font-weight:700;color:#92400e;">Voice Bot</div>
+          <div style="padding:12px 16px;font-size:12px;color:#475569;line-height:1.6;">Newly introduced for EMI conversion. A/B testing currently live. Reaches non-digital customers effectively.</div>
+        </div>
+
+      </div>
+
+      <!-- Innovation Callouts -->
+      <p class="section-label">Innovation Highlights</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+        <div style="background:#0f172a;border-radius:12px;padding:20px 22px;color:white;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#34d399;margin-bottom:8px;">NEW · WHATSAPP WORKFLOW</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Complete EMI Journey — Single Screen</div>
+          <div style="font-size:12px;color:#94a3b8;line-height:1.6;margin-bottom:14px;">The entire conversion journey — offer display, tenure selection, confirmation — happens inside one WhatsApp thread. No redirects, no app switching.</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:8px 14px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#34d399;">1.5X</div>
+              <div style="font-size:10px;color:#94a3b8;">More Effective</div>
+            </div>
+            <div style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:8px 14px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#34d399;">20%</div>
+              <div style="font-size:10px;color:#94a3b8;">Less Drop-off</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#0f172a;border-radius:12px;padding:20px 22px;color:white;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#fbbf24;margin-bottom:8px;">LIVE A/B TEST · VOICE BOT</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:8px;">AI Voice Bot for EMI Conversion</div>
+          <div style="font-size:12px;color:#94a3b8;line-height:1.6;margin-bottom:14px;">Newly introduced voice bot conducts personalised EMI conversion conversations. Active A/B testing comparing bot vs human agent efficiency, cost-per-booking, and conversion rate.</div>
+          <div style="background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:8px 14px;display:inline-block;">
+            <div style="font-size:11px;font-weight:700;color:#fbbf24;">A/B Testing in Progress</div>
+            <div style="font-size:10px;color:#94a3b8;margin-top:2px;">Results to inform full-scale rollout</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Best Converting Campaigns -->
+      <p class="section-label">Best Converting Campaign Types</p>
+      <div class="table-wrap" style="margin-bottom:24px;">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Campaign Type</th><th>Target Segment</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Thank customer for historical EMI booking + re-offer</td><td><span style="background:#dbeafe;color:#1d4ed8;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">PB</span></td></tr>
+            <tr><td>2</td><td>Show current active EMI balance + new conversion option</td><td><span style="background:#dbeafe;color:#1d4ed8;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">PB</span></td></tr>
+            <tr><td>3</td><td>Welcome offer — thank for choosing the bank, introduce EMI</td><td><span style="background:#ede9fe;color:#6d28d9;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">NV</span></td></tr>
+            <tr><td>4</td><td>Transaction-specific campaign based on recent spend</td><td><span style="background:#f1f5f9;color:#475569;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">All</span></td></tr>
+            <tr><td>5</td><td>Inbound call routing for EMI query + conversion assist</td><td><span style="background:#dbeafe;color:#1d4ed8;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">PB</span></td></tr>
+            <tr><td>6</td><td>Cross-sell — thank for other product, introduce EMI next</td><td><span style="background:#d1fae5;color:#166534;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">CBOP</span></td></tr>
+            <tr>
+              <td>7</td>
+              <td>
+                <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#92400e;text-transform:uppercase;margin-bottom:3px;">Event-Based · Drop-Off</div>
+                Digital drop-off recovery — re-engage customers who started but did not complete the EMI journey
+              </td>
+              <td><span style="background:#fef3c7;color:#92400e;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">Drop-off</span></td>
+            </tr>
+            <tr style="background:#fdf4ff;">
+              <td>8</td>
+              <td>
+                <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#7c3aed;text-transform:uppercase;margin-bottom:3px;">Event-Based · Balance Spike</div>
+                Spike-triggered campaign — customer's outstanding balance has spiked 100–200%+ above their 3-month average; strike while urgency is peak (within 24–48 hrs of event)
+              </td>
+              <td><span style="background:#ede9fe;color:#6d28d9;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">Spike</span></td>
+            </tr>
+            <tr><td>9</td><td>Due date approaching — convert before statement closes</td><td><span style="background:#f1f5f9;color:#475569;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">All</span></td></tr>
+            <tr><td>10</td><td>Special offer — reduced processing fee or lower interest</td><td><span style="background:#f1f5f9;color:#475569;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;">All</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Event Based Campaigning -->
+      <p class="section-label">Event Based Campaigning</p>
+      <p style="font-size:13px;color:#64748b;line-height:1.65;margin-bottom:20px;">Beyond scheduled outreach, two real-time customer events create the highest-intent windows in the entire campaign calendar. These are triggered automatically the moment the event is detected — not on a fixed schedule.</p>
+
+      <!-- Event tiles row -->
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:24px;align-items:start;">
+
+        <!-- Spike tile -->
+        <div style="background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:10px;padding:22px 24px;color:white;height:100%;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div style="background:rgba(165,180,252,0.2);border:1px solid rgba(165,180,252,0.35);border-radius:6px;padding:5px 11px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:#a5b4fc;">EVENT 01</div>
+            <div style="height:1px;flex:1;background:rgba(165,180,252,0.2);"></div>
+          </div>
+          <div style="font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px;">Balance Spike</div>
+          <div style="font-size:12.5px;color:#c7d2fe;line-height:1.65;margin-bottom:16px;">Customer's outstanding balance spikes above their 3-month rolling average — triggering peak repayment urgency.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+            <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:10px 12px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#a5b4fc;">6X</div>
+              <div style="font-size:10px;color:#c7d2fe;margin-top:2px;">Peak conversion<br>(Spike 2)</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:10px 12px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#a5b4fc;">48h</div>
+              <div style="font-size:10px;color:#c7d2fe;margin-top:2px;">Intent window<br>to act</div>
+            </div>
+          </div>
+          <div style="background:rgba(165,180,252,0.12);border:1px solid rgba(165,180,252,0.2);border-radius:6px;padding:9px 12px;font-size:11.5px;color:#e0e7ff;line-height:1.5;">
+            <strong>Sweet spot:</strong> Spike 2 (100–200% above avg) — large enough to feel urgent, manageable enough to act on.
+          </div>
+        </div>
+
+        <!-- Drop-off tile -->
+        <div style="background:linear-gradient(145deg,#0c2340,#0e3a5a);border-radius:10px;padding:22px 24px;color:white;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            <div style="background:rgba(125,211,252,0.15);border:1px solid rgba(125,211,252,0.3);border-radius:6px;padding:5px 11px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:#7dd3fc;">EVENT 02</div>
+            <div style="height:1px;flex:1;background:rgba(125,211,252,0.15);"></div>
+          </div>
+          <div style="font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px;">Journey Drop-Off</div>
+          <div style="font-size:12.5px;color:#bae6fd;line-height:1.65;margin-bottom:18px;">Customer initiated the EMI booking journey but did not complete it. Recovery urgency and channel mix depends on exactly where in the journey they dropped.</div>
+
+          <!-- 3 drop-off categories -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+
+            <!-- Login Drop-off -->
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(125,211,252,0.2);border-radius:8px;padding:14px 14px;">
+              <div style="font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:#7dd3fc;text-transform:uppercase;margin-bottom:8px;">Stage 1</div>
+              <div style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">Login<br>Drop-Off</div>
+              <div style="font-size:11.5px;color:#bae6fd;line-height:1.6;margin-bottom:10px;">Customer landed on the EMI page but did not log in or authenticate.</div>
+              <div style="border-top:1px solid rgba(125,211,252,0.15);padding-top:10px;">
+                <div style="font-size:10px;color:#7dd3fc;font-weight:600;margin-bottom:4px;">INTENT SIGNAL</div>
+                <div style="font-size:11px;color:#e0f2fe;">Low–Medium · Re-engage via WhatsApp with simplified one-tap login link</div>
+              </div>
+            </div>
+
+            <!-- Before OTP Drop-off -->
+            <div style="background:rgba(255,255,255,0.09);border:1px solid rgba(125,211,252,0.28);border-radius:8px;padding:14px 14px;">
+              <div style="font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:#38bdf8;text-transform:uppercase;margin-bottom:8px;">Stage 2</div>
+              <div style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">Before OTP<br>Drop-Off</div>
+              <div style="font-size:11.5px;color:#bae6fd;line-height:1.6;margin-bottom:10px;">Customer logged in, viewed the offer, but dropped before submitting OTP to confirm.</div>
+              <div style="border-top:1px solid rgba(125,211,252,0.15);padding-top:10px;">
+                <div style="font-size:10px;color:#38bdf8;font-weight:600;margin-bottom:4px;">INTENT SIGNAL</div>
+                <div style="font-size:11px;color:#e0f2fe;">Medium–High · Re-send offer summary + urgency nudge within 1 hour</div>
+              </div>
+            </div>
+
+            <!-- Post OTP Drop-off -->
+            <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(56,189,248,0.4);border-radius:8px;padding:14px 14px;">
+              <div style="font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:#38bdf8;text-transform:uppercase;margin-bottom:8px;">Stage 3</div>
+              <div style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">Post OTP<br>Drop-Off</div>
+              <div style="font-size:11.5px;color:#bae6fd;line-height:1.6;margin-bottom:10px;">Customer authenticated via OTP but did not complete the final booking confirmation.</div>
+              <div style="border-top:1px solid rgba(125,211,252,0.2);padding-top:10px;">
+                <div style="font-size:10px;color:#38bdf8;font-weight:600;margin-bottom:4px;">INTENT SIGNAL</div>
+                <div style="font-size:11px;color:#e0f2fe;"><strong style="color:#7dd3fc;">Highest</strong> · CC escalation within 1 hour — customer was one tap away from booking</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Drop-off urgency bar -->
+          <div style="margin-top:14px;background:rgba(255,255,255,0.06);border-radius:6px;padding:10px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div style="font-size:10.5px;font-weight:700;color:#7dd3fc;letter-spacing:1px;white-space:nowrap;">RECOVERY WINDOW</div>
+            <div style="flex:1;min-width:200px;">
+              <div style="display:flex;border-radius:4px;overflow:hidden;height:8px;">
+                <div style="flex:5;background:#22c55e;" title="Within 1hr: 5X"></div>
+                <div style="flex:3;background:#eab308;" title="Same day: 3X"></div>
+                <div style="flex:2;background:#f97316;" title="1-2 days: 1.5X"></div>
+                <div style="flex:2;background:#ef4444;" title="10+ days: 0.3X"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:#94a3b8;">
+                <span style="color:#22c55e;">Within 1hr · 5X</span>
+                <span style="color:#eab308;">Same day · 3X</span>
+                <span style="color:#f97316;">1–2 days · 1.5X</span>
+                <span style="color:#ef4444;">10+ days · 0.3X</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Cost Simulation -->
+      <p class="section-label">Cost Simulation — Targeted vs Blanket Approach</p>
+      <div class="table-wrap" style="margin-bottom:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Segment</th>
+              <th>Base Size</th>
+              <th>Conv. Multiplier</th>
+              <th>Blanket Cost / Account</th>
+              <th>With Strategy Cost / Account</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PB</strong></td>
+              <td>20%</td>
+              <td class="conv-high">3–4X</td>
+              <td>₹3</td>
+              <td class="conv-high">₹3</td>
+            </tr>
+            <tr>
+              <td><strong>NV</strong></td>
+              <td>10%</td>
+              <td class="conv-high">3–3.5X</td>
+              <td>₹3</td>
+              <td class="conv-high">₹3</td>
+            </tr>
+            <tr>
+              <td><strong>HP_LC</strong></td>
+              <td>8%</td>
+              <td class="conv-high">2.5–3X</td>
+              <td>₹3</td>
+              <td class="conv-high">₹3</td>
+            </tr>
+            <tr>
+              <td><strong>HP_HC</strong></td>
+              <td>15%</td>
+              <td class="conv-mid">1.5–2X</td>
+              <td>₹3</td>
+              <td class="conv-mid">₹2</td>
+            </tr>
+            <tr>
+              <td><strong>LP_LC</strong></td>
+              <td>7%</td>
+              <td class="conv-mid">1.5X</td>
+              <td>₹3</td>
+              <td class="conv-mid">₹2</td>
+            </tr>
+            <tr style="background:#fef2f2;">
+              <td><strong>LP_HC</strong></td>
+              <td>40%</td>
+              <td class="conv-low">0.15–0.2X</td>
+              <td>₹3</td>
+              <td class="conv-low">₹1.0</td>
+            </tr>
+            <tr style="background:#f0fdf4;font-weight:700;">
+              <td colspan="2"><strong>Blended Average</strong></td>
+              <td>—</td>
+              <td>₹3</td>
+              <td class="conv-high">₹1.98</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">
+        <strong>Key Insight:</strong> Segment-intelligent targeting reduces blended cost per account by ~34% vs a blanket send. LP_HC (40% of base) receiving a reduced spend of ₹1.0/account — vs ₹3 blanket — drives the majority of savings, reallocating budget to PB and NV where ROI is highest.
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 2: Call Centre -->
+  <div class="segment-card">
+    <div class="segment-header">
+      <div class="segment-badge" style="background:#7c3aed;">D2</div>
+      <div class="segment-header-text">
+        <h2>Pillar 2 — Call Centre Strategy</h2>
+        <p>Two focused roles: (1) recovering customers who dropped off the digital journey, and (2) providing personalised EMI servicing for Previously Booked customers.</p>
+      </div>
+    </div>
+    <div class="segment-body">
+
+      <!-- Two roles -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+        <div style="border-left:4px solid #7c3aed;padding:14px 18px;background:#faf5ff;border-radius:0 10px 10px 0;">
+          <div style="font-size:12px;font-weight:700;color:#6d28d9;margin-bottom:6px;">ROLE 1 — DROP-OFF RECOVERY</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6;">Re-engage customers who initiated the digital EMI journey but did not complete. Time-to-contact is the single most critical variable — every hour of delay halves the conversion probability.</div>
+        </div>
+        <div style="border-left:4px solid #2563eb;padding:14px 18px;background:#eff6ff;border-radius:0 10px 10px 0;">
+          <div style="font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:6px;">ROLE 2 — PB PERSONALISED SERVICE</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6;">Proactive outreach to Previously Booked customers — review existing EMI status, introduce new conversion options, handle inbound queries, and deepen relationship through high-touch banking service.</div>
+        </div>
+      </div>
+
+      <!-- Drop-off conversion table -->
+      <p class="section-label">Drop-Off Recovery — Conversion vs Time to Contact</p>
+      <div class="table-wrap" style="margin-bottom:16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Time Since Drop-Off</th>
+              <th>Digital Re-engagement Conversion</th>
+              <th>Call Centre Conversion on Contact</th>
+              <th>Recommended Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f0fdf4;">
+              <td><strong>Within 1 Hour</strong></td>
+              <td class="conv-high">5X</td>
+              <td class="conv-high">4X</td>
+              <td>Immediate automated WhatsApp + CC escalation trigger</td>
+            </tr>
+            <tr>
+              <td><strong>Same Day</strong></td>
+              <td class="conv-high">3X</td>
+              <td class="conv-mid">2X</td>
+              <td>Automated re-nudge + CC dial within business hours</td>
+            </tr>
+            <tr>
+              <td><strong>1 Day</strong></td>
+              <td class="conv-mid">2X</td>
+              <td class="conv-mid">2X</td>
+              <td>Second digital touch + CC attempt if no response</td>
+            </tr>
+            <tr>
+              <td><strong>2 Days</strong></td>
+              <td class="conv-mid">1.5X</td>
+              <td class="conv-mid">1.5X</td>
+              <td>Final digital re-engagement with special offer overlay</td>
+            </tr>
+            <tr>
+              <td><strong>3–10 Days</strong></td>
+              <td style="color:#94a3b8;font-weight:600;">1X (baseline)</td>
+              <td style="color:#94a3b8;font-weight:600;">1X (baseline)</td>
+              <td>Standard campaign cadence, no urgency treatment</td>
+            </tr>
+            <tr style="background:#fef2f2;">
+              <td><strong>10+ Days</strong></td>
+              <td class="conv-low">0.8X</td>
+              <td class="conv-low">0.3X</td>
+              <td>Digital only, deprioritise CC — cost exceeds returns</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">
+        <strong>Key Insight:</strong> A drop-off customer contacted within 1 hour converts at 5X digitally and 4X via call centre. Beyond 10 days, call centre conversion drops to 0.3X — making CC outreach at that stage economically unviable. The playbook is simple: <strong>automate the first hour, then escalate to CC within the same day.</strong>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    Outstanding to EMI — Campaign Segmentation Framework &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For Internal Use Only
+  </div>
+
+</div>
+</body>
+</html>
