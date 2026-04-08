@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSTOEMI Campaign Plan Flowchart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pri:#2563EB;--pri-l:#DBEAFE;--pri-d:#1E40AF;--bg:#FAFAF8;--card:#FFF;--bdr:#E8E4DD;
+  --t1:#2C2A27;--t2:#6B6862;--t3:#9B9691;--ok:#059669;--ok-l:#D1FAE5;--ok-d:#065F46;
+  --warn:#D97706;--warn-l:#FEF3C7;--err:#DC2626;--f:'Inter',-apple-system,sans-serif;
+  --purple:#7C3AED;--purple-l:#EDE9FE;--purple-d:#5B21B6;
+  --teal:#0891B2;--teal-l:#CFFAFE;--teal-d:#164E63;
+  --pink:#DB2777;--pink-l:#FCE7F3;--pink-d:#9D174D;
+  --green:#059669;--green-l:#D1FAE5;--green-d:#065F46;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--bg);color:var(--t1);min-height:100vh}
+
+.header{background:var(--card);border-bottom:1px solid var(--bdr);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-icon{width:36px;height:36px;background:var(--pri);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.header-title{font-size:16px;font-weight:700}
+.header-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.header-badge{padding:4px 12px;background:var(--pri-l);color:var(--pri);border-radius:999px;font-size:11px;font-weight:600}
+
+.main{padding:32px 28px;max-width:1300px;margin:0 auto}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0}
+
+.connector{display:flex;flex-direction:column;align-items:center}
+.vline{width:3px;height:28px;background:var(--bdr)}
+.arrow-down{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--bdr)}
+
+.node{background:var(--card);border:2px solid var(--bdr);border-radius:16px;padding:20px 28px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.07);max-width:650px;width:100%;transition:transform 150ms,box-shadow 150ms}
+.node:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.1)}
+
+.node-start{background:linear-gradient(135deg,var(--pri) 0%,var(--pri-d) 100%);border-color:var(--pri-d);color:white;border-radius:20px;padding:24px 32px}
+.node-start .node-title{color:white}
+.node-start .node-desc{color:rgba(255,255,255,0.85)}
+
+.node-process{border-left:5px solid var(--pri)}
+.node-decision{border:2px solid var(--warn);background:var(--warn-l);position:relative}
+
+.node-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.node-desc{font-size:12px;color:var(--t2);line-height:1.6}
+.node-label{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px}
+
+/* Segment cards */
+.seg-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;width:100%}
+.seg-card{background:var(--card);border:2px solid var(--bdr);border-radius:12px;padding:12px 14px;text-align:center;flex:1;min-width:100px;max-width:150px;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.seg-dot{width:10px;height:10px;border-radius:50%;margin:0 auto 6px}
+.seg-name{font-size:13px;font-weight:700;margin-bottom:2px}
+.seg-full{font-size:9px;color:var(--t3);line-height:1.3}
+.seg-eff{font-size:9px;font-weight:600;margin-top:4px;padding:2px 6px;border-radius:999px;display:inline-block}
+
+/* Strategy boxes */
+.strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:1100px}
+@media(max-width:800px){.strat-grid{grid-template-columns:1fr}}
+
+.strategy-box{background:var(--card);border-radius:16px;padding:22px 24px;box-shadow:0 4px 6px rgba(0,0,0,.07);text-align:center}
+.strategy-box.tier1{border:2px solid var(--ok);border-top:5px solid var(--ok)}
+.strategy-box.tier2{border:2px solid var(--purple);border-top:5px solid var(--purple)}
+.strategy-box.tier3{border:2px solid var(--pri);border-top:5px solid var(--pri)}
+.strategy-box.tier4{border:2px solid var(--teal);border-top:5px solid var(--teal)}
+
+.strat-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:10px;font-weight:700;margin-bottom:10px}
+.strat-badge.tier1{background:var(--ok-l);color:var(--ok-d)}
+.strat-badge.tier2{background:var(--purple-l);color:var(--purple-d)}
+.strat-badge.tier3{background:var(--pri-l);color:var(--pri-d)}
+.strat-badge.tier4{background:var(--teal-l);color:var(--teal-d)}
+
+.strat-title{font-size:15px;font-weight:700;margin-bottom:3px}
+.strat-segs{font-size:11px;color:var(--t3);margin-bottom:10px}
+.strat-desc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:12px}
+
+/* Day timeline */
+.day-timeline{display:flex;gap:4px;justify-content:center;align-items:center;margin-top:8px}
+.day-slot{width:38px;height:38px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.day-slot.active{color:white}
+.day-slot.inactive{background:#F5F3F0;color:var(--t3);border:1px dashed var(--bdr)}
+.day-slot .day-num{font-size:14px;font-weight:800;line-height:1}
+.day-slot .day-label{font-size:7px;font-weight:600;letter-spacing:0.03em}
+.day-conn{width:8px;height:2px;background:var(--bdr)}
+
+/* Drop-off section */
+.dropoff-box{background:var(--card);border:2px solid var(--warn);border-top:5px solid var(--warn);border-radius:16px;padding:24px 28px;max-width:700px;width:100%;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.07)}
+
+/* Outcome */
+.outcome-box{background:linear-gradient(135deg,#F5EDE4 0%,#E8D5C4 100%);border:1px solid #E8D5C4;border-radius:16px;padding:20px 28px;max-width:800px;width:100%;text-align:center}
+.outcome-title{font-size:14px;font-weight:700;color:#4A3728;margin-bottom:6px}
+.outcome-desc{font-size:12px;color:#6B4F3A;line-height:1.7}
+
+.branch-label{font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:0.04em;display:inline-block;margin-bottom:6px}
+
+/* Phase divider */
+.phase-divider{width:100%;max-width:1100px;display:flex;align-items:center;gap:16px;margin:8px 0}
+.phase-line{flex:1;height:1px;background:var(--bdr)}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);padding:4px 14px;background:var(--bg);border:1px solid var(--bdr);border-radius:999px;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <div><div class="header-title">OSTOEMI Campaign Plan</div><div class="header-sub">Outstanding to EMI Conversion - Messaging Strategy Flow</div></div>
+  </div>
+  <div class="header-badge">IBL PRESENTATION</div>
+</div>
+
+<div class="main">
+<div class="flow">
+
+  <!-- Step 1: Inventory -->
+  <div class="node node-start" style="max-width:700px">
+    <div class="node-label" style="color:rgba(255,255,255,0.7)">Step 1</div>
+    <div class="node-title" style="font-size:18px">Daily Inventory Received</div>
+    <div class="node-desc">Fresh outstanding balance accounts arrive daily from the bank. Each account carries ELA (Eligible Loan Amount) for EMI conversion.</div>
+  </div>
+
+  <div class="connector"><div class="vline"></div><div class="arrow-down"></div></div>
+
+  <!-- Step 2: Segmentation -->
+  <div class="node node-process" style="max-width:800px">
+    <div class="node-label" style="color:var(--pri)">Step 2</div>
+    <div class="node-title">Segment Classification</div>
+    <div class="node-desc" style="margin-bottom:14px">Each account is classified into segments based on propensity model, past behavior, churn, and vintage</div>
+    <div class="seg-group">
+      <div class="seg-card" style="border-color:#DB2777">
+        <div class="seg-dot" style="background:#DB2777"></div>
+        <div class="seg-name">PB</div>
+        <div class="seg-full">Past Bookers</div>
+        <div class="seg-eff" style="background:#FCE7F3;color:#9D174D">123.5 Rs/msg</div>
+      </div>
+      <div class="seg-card" style="border-color:#059669">
+        <div class="seg-dot" style="background:#059669"></div>
+        <div class="seg-name">LBCL</div>
+        <div class="seg-full">Loan Below Credit Limit</div>
+        <div class="seg-eff" style="background:#D1FAE5;color:#065F46">145.0 Rs/msg</div>
+      </div>
+      <div class="seg-card" style="border-color:#0891B2">
+        <div class="seg-dot" style="background:#0891B2"></div>
+        <div class="seg-name">NV</div>
+        <div class="seg-full">New Vintage</div>
+        <div class="seg-eff" style="background:#CFFAFE;color:#164E63">178.7 Rs/msg</div>
+      </div>
+      <div class="seg-card" style="border-color:#7C3AED">
+        <div class="seg-dot" style="background:#7C3AED"></div>
+        <div class="seg-name">HP_LC / LP_LC</div>
+        <div class="seg-full">Low Churn (less campaigned)</div>
+        <div class="seg-eff" style="background:#EDE9FE;color:#5B21B6">38-123 Rs/msg</div>
+      </div>
+      <div class="seg-card" style="border-color:#2563EB">
+        <div class="seg-dot" style="background:#2563EB"></div>
+        <div class="seg-name">HP_Rest / LP_Rest</div>
+        <div class="seg-full">Regular Pool</div>
+        <div class="seg-eff" style="background:#DBEAFE;color:#1E40AF">13-29 Rs/msg</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline"></div><div class="arrow-down"></div></div>
+
+  <!-- Step 3: Decision -->
+  <div class="node node-decision" style="max-width:600px">
+    <div class="node-label" style="color:var(--warn)">Step 3</div>
+    <div class="node-title" style="color:#92400E">Route by Segment Tier</div>
+    <div class="node-desc" style="color:#92400E">
+      Messaging intensity is calibrated to segment efficiency -- higher yield segments get more touchpoints
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline" style="height:16px"></div></div>
+
+  <div class="phase-divider">
+    <div class="phase-line"></div>
+    <div class="phase-label">Phase 1 -- First 5 Days from Arrival</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <!-- 4 Strategy Tiers -->
+  <div class="strat-grid">
+
+    <!-- Tier 1: High Yield - 5 day -->
+    <div class="strategy-box tier1">
+      <div class="strat-badge tier1">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+        Tier 1 -- High Intensity
+      </div>
+      <div class="strat-title">5-Day Consecutive Messaging</div>
+      <div class="strat-segs">
+        <span style="color:#DB2777;font-weight:600">PB</span> /
+        <span style="color:#059669;font-weight:600">LBCL</span> /
+        <span style="color:#0891B2;font-weight:600">NV</span>
+      </div>
+      <div class="strat-desc">Message every day for 5 consecutive days. Maximum touchpoints on highest-efficiency segments.</div>
+      <div style="font-size:9px;font-weight:600;color:var(--t3);margin-bottom:6px;letter-spacing:0.05em;text-transform:uppercase">Timeline</div>
+      <div class="day-timeline">
+        <div class="day-slot active" style="background:var(--ok)"><div class="day-num">1</div><div class="day-label">MSG</div></div>
+        <div class="day-conn" style="background:var(--ok)"></div>
+        <div class="day-slot active" style="background:var(--ok)"><div class="day-num">2</div><div class="day-label">MSG</div></div>
+        <div class="day-conn" style="background:var(--ok)"></div>
+        <div class="day-slot active" style="background:var(--ok)"><div class="day-num">3</div><div class="day-label">MSG</div></div>
+        <div class="day-conn" style="background:var(--ok)"></div>
+        <div class="day-slot active" style="background:var(--ok)"><div class="day-num">4</div><div class="day-label">MSG</div></div>
+        <div class="day-conn" style="background:var(--ok)"></div>
+        <div class="day-slot active" style="background:var(--ok)"><div class="day-num">5</div><div class="day-label">MSG</div></div>
+      </div>
+      <div style="font-size:10px;color:var(--ok);font-weight:600;margin-top:10px">5/5 days = 100% coverage</div>
+    </div>
+
+    <!-- Tier 2: Low Churn - 3 day -->
+    <div class="strategy-box tier2">
+      <div class="strat-badge tier2">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
+        Tier 2 -- Moderate
+      </div>
+      <div class="strat-title">3-Day Campaigning</div>
+      <div class="strat-segs">
+        <span style="color:#7C3AED;font-weight:600">HP_LC</span> /
+        <span style="color:#7C3AED;font-weight:600">LP_LC</span>
+      </div>
+      <div class="strat-desc">Low-churn accounts haven't been heavily campaigned. 3 messages in the 5-day window balances reach with cost.</div>
+      <div style="font-size:9px;font-weight:600;color:var(--t3);margin-bottom:6px;letter-spacing:0.05em;text-transform:uppercase">Timeline</div>
+      <div class="day-timeline">
+        <div class="day-slot active" style="background:var(--purple)"><div class="day-num">1</div><div class="day-label">MSG</div></div>
+        <div class="day-conn" style="background:var(--purple)"></div>
+        <div class="day-slot active" style="background:var(--purple)"><div class="day-num">2</div><div class="day-label">MSG</div></div>
+        <div class="day-conn"></div>
+        <div class="day-slot inactive"><div class="day-num">3</div><div class="day-label">SKIP</div></div>
+        <div class="day-conn"></div>
+        <div class="day-slot inactive"><div class="day-num">4</div><div class="day-label">SKIP</div></div>
+        <div class="day-conn" style="background:var(--purple)"></div>
+        <div class="day-slot active" style="background:var(--purple)"><div class="day-num">5</div><div class="day-label">MSG</div></div>
+      </div>
+      <div style="font-size:10px;color:var(--purple);font-weight:600;margin-top:10px">3/5 days = 60% coverage</div>
+    </div>
+
+    <!-- Tier 3: Rest - 2 day -->
+    <div class="strategy-box tier3">
+      <div class="strat-badge tier3">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Tier 3 -- Cost Optimized
+      </div>
+      <div class="strat-title">2 Campaigns in 5 Days</div>
+      <div class="strat-segs">
+        <span style="color:#2563EB;font-weight:600">HP_Rest</span> /
+        <span style="color:#DC2626;font-weight:600">LP_Rest</span>
+      </div>
+      <div class="strat-desc">Regular pool gets 2 targeted messages on key conversion windows. Saves ~60% cost vs full saturation on lower-efficiency segments.</div>
+      <div style="font-size:9px;font-weight:600;color:var(--t3);margin-bottom:6px;letter-spacing:0.05em;text-transform:uppercase">Timeline</div>
+      <div class="day-timeline">
+        <div class="day-slot inactive"><div class="day-num">1</div><div class="day-label">SKIP</div></div>
+        <div class="day-conn"></div>
+        <div class="day-slot active" style="background:var(--pri)"><div class="day-num">2</div><div class="day-label">MSG</div></div>
+        <div class="day-conn"></div>
+        <div class="day-slot inactive"><div class="day-num">3</div><div class="day-label">SKIP</div></div>
+        <div class="day-conn"></div>
+        <div class="day-slot inactive"><div class="day-num">4</div><div class="day-label">SKIP</div></div>
+        <div class="day-conn" style="background:var(--pri)"></div>
+        <div class="day-slot active" style="background:var(--pri)"><div class="day-num">5</div><div class="day-label">MSG</div></div>
+      </div>
+      <div style="font-size:10px;color:var(--pri);font-weight:600;margin-top:10px">2/5 days = 40% coverage</div>
+    </div>
+
+    <!-- Tier 4: NAC placeholder -->
+    <div class="strategy-box" style="border:2px dashed var(--bdr);border-top:5px dashed var(--bdr);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px">
+      <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px">NAC Accounts</div>
+      <div style="font-size:12px;color:var(--t3);line-height:1.5;max-width:280px">New-to-campaign accounts routed into appropriate tier based on segment classification above</div>
+    </div>
+
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="phase-divider">
+    <div class="phase-line"></div>
+    <div class="phase-label">Phase 2 -- Post 5-Day Drop-off Handling</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="connector"><div class="vline" style="height:16px"></div><div class="arrow-down"></div></div>
+
+  <!-- Step 4: Drop-off -->
+  <div class="node" style="max-width:650px;border-color:var(--warn);border-left:5px solid var(--warn)">
+    <div class="node-label" style="color:var(--warn)">Step 4</div>
+    <div class="node-title">Identify Drop-offs</div>
+    <div class="node-desc">After the initial 5-day campaign window, accounts that did not convert are classified as <strong>drop-offs</strong>. These are segregated into SubSegments: <em>*_Prev_Dropoff</em> and <em>*_SM_Dropoff</em>.</div>
+  </div>
+
+  <div class="connector"><div class="vline"></div><div class="arrow-down"></div></div>
+
+  <!-- Drop-off Strategy -->
+  <div class="dropoff-box">
+    <div class="strat-badge" style="background:var(--warn-l);color:#92400E">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Re-engagement
+    </div>
+    <div class="strat-title" style="font-size:16px">3-Day Drop-off Campaigning</div>
+    <div class="strat-segs">All Segments -- Irrespective of original tier</div>
+    <div class="strat-desc" style="max-width:500px;margin:0 auto 14px">
+      Every drop-off account gets a 3-day re-engagement campaign regardless of their original segment. This uniform approach ensures no high-potential drop-off is missed while keeping cost controlled.
+    </div>
+    <div style="font-size:9px;font-weight:600;color:var(--t3);margin-bottom:6px;letter-spacing:0.05em;text-transform:uppercase">Drop-off Re-engagement Timeline</div>
+    <div class="day-timeline" style="justify-content:center">
+      <div class="day-slot active" style="background:var(--warn)"><div class="day-num">1</div><div class="day-label">MSG</div></div>
+      <div class="day-conn" style="background:var(--warn)"></div>
+      <div class="day-slot active" style="background:var(--warn)"><div class="day-num">2</div><div class="day-label">MSG</div></div>
+      <div class="day-conn" style="background:var(--warn)"></div>
+      <div class="day-slot active" style="background:var(--warn)"><div class="day-num">3</div><div class="day-label">MSG</div></div>
+    </div>
+    <div style="font-size:10px;color:var(--warn);font-weight:600;margin-top:10px">3 consecutive days of re-engagement</div>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="phase-divider">
+    <div class="phase-line"></div>
+    <div class="phase-label">Phase 3 -- Weekend Full-Base Campaign</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="connector"><div class="vline" style="height:16px"></div><div class="arrow-down"></div></div>
+
+  <!-- Weekend Plans -->
+  <div style="background:var(--card);border:2px solid var(--green);border-top:5px solid var(--green);border-radius:16px;padding:24px 28px;max-width:700px;width:100%;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.07)">
+    <div class="strat-badge" style="background:var(--green-l);color:var(--green-d)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Weekend Blitz
+    </div>
+    <div class="strat-title" style="font-size:16px">Full-Base Weekend Messaging</div>
+    <div class="strat-segs">All Segments -- Entire Eligible Base</div>
+    <div class="strat-desc" style="max-width:520px;margin:0 auto 14px">
+      On weekends, the entire eligible base is campaigned irrespective of segment or tier. Weekend messaging captures users who may engage during leisure time, providing a broad sweep across all accounts.
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+      <div style="padding:8px 18px;border-radius:10px;background:var(--green-l);border:1px solid var(--green)">
+        <div style="font-size:10px;font-weight:700;color:var(--green-d);letter-spacing:0.04em;text-transform:uppercase">Saturday</div>
+        <div style="font-size:18px;font-weight:800;color:var(--green)">Full Base</div>
+      </div>
+      <div style="padding:8px 18px;border-radius:10px;background:var(--green-l);border:1px solid var(--green)">
+        <div style="font-size:10px;font-weight:700;color:var(--green-d);letter-spacing:0.04em;text-transform:uppercase">Sunday</div>
+        <div style="font-size:18px;font-weight:800;color:var(--green)">Full Base</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--green);font-weight:600;margin-top:12px">100% base coverage on weekends -- supplementary to weekday tiered strategy</div>
+  </div>
+
+  <div style="height:12px"></div>
+
+  <div class="phase-divider">
+    <div class="phase-line"></div>
+    <div class="phase-label">Phase 4 -- Trigger-Based Extra Campaigning</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="connector"><div class="vline" style="height:16px"></div><div class="arrow-down"></div></div>
+
+  <!-- Trigger-based campaigning -->
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;width:100%;max-width:1100px">
+
+    <!-- Trigger A: Conversion Lag -->
+    <div style="flex:1;min-width:320px;max-width:520px;background:var(--card);border:2px solid var(--err);border-top:5px solid var(--err);border-radius:16px;padding:22px 24px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.07)">
+      <div class="strat-badge" style="background:#FEE2E2;color:#991B1B">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Trigger A -- Conversion Lag
+      </div>
+      <div class="strat-title">First Appearance Date Monitor</div>
+      <div class="strat-desc" style="max-width:440px;margin:0 auto 14px">
+        For each segment, the <strong>first appearance date</strong> is tracked. If conversion rate is lagging behind expected benchmarks on that date, it triggers additional campaigning to close the gap.
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <div style="padding:6px 14px;border-radius:8px;background:#FEF2F2;border:1px dashed var(--err);font-size:11px">
+          <span style="font-weight:700;color:var(--err)">Monitor</span><br>
+          <span style="font-size:10px;color:#991B1B">Conversion vs Benchmark</span>
+        </div>
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="var(--err)" stroke-width="2"><path d="M1 7h14M15 7l-4-4M15 7l-4 4"/></svg>
+        <div style="padding:6px 14px;border-radius:8px;background:#FEF2F2;border:1px dashed var(--err);font-size:11px">
+          <span style="font-weight:700;color:var(--err)">Trigger</span><br>
+          <span style="font-size:10px;color:#991B1B">Extra Campaign Burst</span>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--err);font-weight:600;margin-top:12px">Segment-level conversion lag detection -- proactive intervention</div>
+    </div>
+
+    <!-- Trigger B: Balance Spike -->
+    <div style="flex:1;min-width:320px;max-width:520px;background:var(--card);border:2px solid var(--pink);border-top:5px solid var(--pink);border-radius:16px;padding:22px 24px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,.07)">
+      <div class="strat-badge" style="background:var(--pink-l);color:var(--pink-d)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Trigger B -- Balance Spike
+      </div>
+      <div class="strat-title">6-Month Average Balance Monitor</div>
+      <div class="strat-desc" style="max-width:440px;margin:0 auto 14px">
+        Compares each account's current outstanding balance against its <strong>6-month rolling average</strong>. If the balance spike exceeds <strong>100%</strong>, the account is flagged for immediate campaigning -- a high-intent signal indicating sudden credit usage.
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <div style="padding:6px 14px;border-radius:8px;background:var(--pink-l);border:1px dashed var(--pink);font-size:11px">
+          <span style="font-weight:700;color:var(--pink)">Current Balance</span><br>
+          <span style="font-size:10px;color:var(--pink-d)">vs 6-month avg</span>
+        </div>
+        <div style="font-size:18px;font-weight:800;color:var(--pink)">&gt; 100%</div>
+        <div style="padding:6px 14px;border-radius:8px;background:var(--pink-l);border:1px dashed var(--pink);font-size:11px">
+          <span style="font-weight:700;color:var(--pink)">Campaign</span><br>
+          <span style="font-size:10px;color:var(--pink-d)">High-intent target</span>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--pink);font-weight:600;margin-top:12px">New initiative -- account-level balance spike detection for targeted outreach</div>
+    </div>
+
+  </div>
+
+  <div class="connector"><div class="vline"></div><div class="arrow-down"></div></div>
+
+  <!-- Step 6: Outcome -->
+  <div class="node" style="max-width:650px;border-color:var(--ok);border-left:5px solid var(--ok)">
+    <div class="node-label" style="color:var(--ok)">Step 6</div>
+    <div class="node-title">Campaign Cycle Complete</div>
+    <div class="node-desc">Accounts that convert at any stage are tracked as bookings. Remaining non-converters exit the active campaign pool until the next inventory refresh.</div>
+  </div>
+
+  <div class="connector"><div class="vline"></div><div class="arrow-down"></div></div>
+
+  <!-- Outcome insight -->
+  <div class="outcome-box" style="max-width:900px">
+    <div style="margin-bottom:6px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8905F" stroke-width="2.2" style="vertical-align:middle">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    </div>
+    <div class="outcome-title">Strategy Summary</div>
+    <div class="outcome-desc">
+      <strong>Tier 1 (PB, LBCL, NV):</strong> 5/5 days -- full saturation on segments returning 123-179 Rs/msg<br>
+      <strong>Tier 2 (HP_LC, LP_LC):</strong> 3/5 days -- moderate reach on low-churn accounts with fresh potential<br>
+      <strong>Tier 3 (HP_Rest, LP_Rest):</strong> 2/5 days -- cost-optimized targeting on regular pool (13-29 Rs/msg)<br>
+      <strong>Drop-off:</strong> 3-day uniform re-engagement across all segments<br>
+      <strong>Weekend:</strong> Full-base messaging on Sat/Sun -- broad sweep across entire eligible inventory<br>
+      <strong>Triggers:</strong> Conversion lag detection per segment + Balance spike &gt;100% over 6-month avg for high-intent targeting
+    </div>
+  </div>
+
+</div>
+</div>
+</body>
+</html>

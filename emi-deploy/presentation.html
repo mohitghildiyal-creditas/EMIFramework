@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBL Loans Segment Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pri:#2563EB;--pri-l:#DBEAFE;--pri-d:#1E40AF;
+  --bg:#FAFAF8;--sf:#F5F3F0;--card:#FFF;--bdr:#E8E4DD;
+  --t1:#2C2A27;--t2:#6B6862;--t3:#9B9691;
+  --ok:#059669;--ok-l:#D1FAE5;--ok-d:#065F46;
+  --err:#DC2626;--err-l:#FEE2E2;
+  --warn:#D97706;--warn-l:#FEF3C7;
+  --purple:#7C3AED;--purple-l:#EDE9FE;
+  --pink:#DB2777;--pink-l:#FCE7F3;
+  --teal:#0891B2;--teal-l:#CFFAFE;
+  --f:'Inter',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--bg);color:var(--t1);line-height:1.6}
+
+/* Nav */
+.top-nav{position:sticky;top:0;z-index:1000;background:linear-gradient(135deg,#1a1a2e,#16213e);border-bottom:1px solid rgba(255,255,255,.08);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo{width:34px;height:34px;background:var(--pri);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.nav-title{font-size:15px;font-weight:700;color:#fff}
+.nav-sub{font-size:10px;color:rgba(255,255,255,.45);margin-top:1px}
+.nav-badge{padding:5px 14px;background:rgba(37,99,235,.2);color:#93B4F8;border-radius:999px;font-size:11px;font-weight:600;border:1px solid rgba(37,99,235,.3)}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:6px 14px;border-radius:999px;font-size:11px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;transition:all 200ms}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* Sections */
+.section{max-width:1500px;margin:0 auto;padding:36px 28px 0}
+.section:last-of-type{padding-bottom:48px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.section-num{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.section-title{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.section-desc{font-size:12px;color:var(--t3);margin-top:2px}
+.divider{max-width:1500px;margin:36px auto 0;border:none;border-top:1px solid var(--bdr)}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px}
+.card-title{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* Intro hero */
+.hero{background:linear-gradient(135deg,#1E293B 0%,#0F172A 100%);border-radius:20px;padding:40px 36px;color:#fff;margin-bottom:24px}
+.hero-badge{display:inline-block;padding:4px 14px;background:rgba(37,99,235,.25);color:#93B4F8;border-radius:999px;font-size:11px;font-weight:600;margin-bottom:14px;border:1px solid rgba(37,99,235,.3)}
+.hero h2{font-size:26px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.hero p{font-size:14px;color:rgba(255,255,255,.65);max-width:800px;line-height:1.7}
+
+/* Segment definition cards */
+.seg-defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:20px}
+.seg-def{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:18px 20px;border-left:5px solid var(--bdr)}
+.seg-def-name{font-size:15px;font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.seg-def-full{font-size:11px;color:var(--t3);margin-bottom:6px}
+.seg-def-desc{font-size:12px;color:var(--t2);line-height:1.5}
+.seg-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+
+/* Churn note */
+.churn-note{background:var(--sf);border:1px solid var(--bdr);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px}
+.churn-note svg{flex-shrink:0;margin-top:2px}
+.churn-note-text{font-size:12px;color:var(--t2);line-height:1.6}
+.churn-note-text strong{color:var(--t1)}
+
+/* Tables */
+table.dt{width:100%;border-collapse:collapse;font-size:11px}
+table.dt th{font-size:9px;font-weight:700;color:var(--t3);letter-spacing:.05em;text-transform:uppercase;padding:8px 7px;text-align:right;border-bottom:2px solid var(--bdr);white-space:nowrap}
+table.dt th:first-child{text-align:left;position:sticky;left:0;background:var(--card);z-index:3;box-shadow:2px 0 4px rgba(0,0,0,.04)}
+table.dt th.ghdr{text-align:center;background:var(--sf);border-radius:4px 4px 0 0;font-size:10px;color:var(--t2);padding:5px 7px;border-bottom:1px solid var(--bdr)}
+table.dt td{padding:8px 7px;border-bottom:1px solid var(--sf);text-align:right;font-variant-numeric:tabular-nums;font-size:11px}
+table.dt td:first-child{text-align:left;font-weight:600;position:sticky;left:0;background:var(--card);z-index:2;box-shadow:2px 0 4px rgba(0,0,0,.04)}
+table.dt tr:hover td{background:var(--sf)}
+table.dt tr:hover td:first-child{background:var(--sf)}
+table.dt .total-row td{font-weight:700!important;border-top:2px solid var(--bdr)!important;background:var(--card)}
+table.dt .total-row td:first-child{background:var(--card)}
+.conv-cell{display:flex;align-items:center;gap:4px;justify-content:flex-end}
+.bar-bg{width:40px;height:5px;background:var(--sf);border-radius:999px;overflow:hidden;flex-shrink:0}
+.bar-fg{height:100%;border-radius:999px}
+.trend-up{color:var(--ok);font-weight:700}
+.trend-down{color:var(--err);font-weight:700}
+.pct-cell{display:flex;align-items:center;gap:4px;justify-content:flex-end}
+.pct-bar{display:inline-block;height:14px;border-radius:3px;min-width:1px;opacity:.7}
+
+/* Insight callout */
+.insight{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border:1px solid #F59E0B;border-radius:14px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px}
+.insight-icon{width:36px;height:36px;background:#FFFBEB;border:1px solid #F59E0B;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.insight h4{font-size:14px;font-weight:700;color:#92400E;margin-bottom:4px}
+.insight p{font-size:12px;color:#78350F;line-height:1.6}
+
+/* iframe sections */
+.frame-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.frame-wrap iframe{width:100%;border:none;display:block}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .section{padding:16px 12px 0}
+  .hero{padding:24px 20px}
+  .hero h2{font-size:20px}
+  .seg-defs{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+    <div><div class="nav-title">IBL Loans Segment Overview</div><div class="nav-sub">OSTOEMI Strategy -- Creditas</div></div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="#intro">Overview</a>
+    <a class="nav-link" href="#segments">Segments</a>
+    <a class="nav-link" href="#conversion">Conversion</a>
+    <a class="nav-link" href="#pb-deep">PB Deep-dive</a>
+    <a class="nav-link" href="#campaign">Campaign Plan</a>
+    <a class="nav-link" href="#cost">Cost Simulator</a>
+  </div>
+  <div class="nav-badge">IBL PRESENTATION</div>
+</nav>
+
+<!-- ============ SECTION 1: INTRO ============ -->
+<div class="section" id="intro">
+  <div class="hero">
+    <div class="hero-badge">OSTOEMI -- Outstanding to EMI Conversion</div>
+    <h2>Continuously Refining Segments & Campaign Strategy</h2>
+    <p>Over the last 3 months (Jan -- Mar 2026), we have been continuously refining our segmentation approach and campaign strategy for the IBL OSTOEMI product. Each month brings sharper targeting, better cost efficiency, and improved conversion rates across all segments.</p>
+  </div>
+</div>
+
+<!-- ============ SECTION 2: SEGMENT DEFINITIONS ============ -->
+<div class="section" id="segments">
+  <div class="section-hdr">
+    <div class="section-num" style="background:linear-gradient(135deg,#2563EB,#1E40AF)">1</div>
+    <div><div class="section-title">Segment Definitions</div><div class="section-desc">We have divided our base into 5 key segments</div></div>
+  </div>
+
+  <div class="seg-defs">
+    <div class="seg-def" style="border-left-color:#DB2777">
+      <div class="seg-def-name"><span class="seg-dot" style="background:#DB2777"></span> PB</div>
+      <div class="seg-def-full">Previously Booked</div>
+      <div class="seg-def-desc">Accounts that have previously converted an outstanding balance to EMI. Highest propensity to convert again.</div>
+    </div>
+    <div class="seg-def" style="border-left-color:#0891B2">
+      <div class="seg-def-name"><span class="seg-dot" style="background:#0891B2"></span> NV</div>
+      <div class="seg-def-full">New Vintage</div>
+      <div class="seg-def-desc">Recently acquired accounts with fresh credit history. High engagement potential due to novelty.</div>
+    </div>
+    <div class="seg-def" style="border-left-color:#059669">
+      <div class="seg-def-name"><span class="seg-dot" style="background:#059669"></span> LBCL</div>
+      <div class="seg-def-full">Last 3 Month LBCL Booked</div>
+      <div class="seg-def-desc">Accounts that have booked a Loan Below Credit Limit in the last 3 months. Strong signal of credit appetite.</div>
+    </div>
+    <div class="seg-def" style="border-left-color:#7C3AED">
+      <div class="seg-def-name"><span class="seg-dot" style="background:#7C3AED"></span> HP</div>
+      <div class="seg-def-full">High Propensity</div>
+      <div class="seg-def-desc">Propensity score 1--4. Model predicts higher likelihood of conversion based on behavioral & transactional signals.</div>
+    </div>
+    <div class="seg-def" style="border-left-color:#2563EB">
+      <div class="seg-def-name"><span class="seg-dot" style="background:#2563EB"></span> LP</div>
+      <div class="seg-def-full">Low Propensity</div>
+      <div class="seg-def-desc">Propensity score &gt;4. Lower predicted conversion probability but largest volume segment.</div>
+    </div>
+  </div>
+
+  <div class="churn-note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--warn)" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
+    <div class="churn-note-text">
+      <strong>Low Churn vs High Churn:</strong> We further divide HP and LP into <strong>Low Churn (_LC)</strong> and <strong>High Churn (_Rest)</strong> sub-segments based on the amount of campaigning done on the account in the last 6 months. Low Churn accounts have received fewer campaigns and tend to respond better, while High Churn accounts have been heavily campaigned and show fatigue.
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============ SECTION 3: SEGMENT CONVERSION TABLE ============ -->
+<div class="section" id="conversion">
+  <div class="section-hdr">
+    <div class="section-num" style="background:linear-gradient(135deg,#059669,#065F46)">2</div>
+    <div><div class="section-title">Segment-wise Conversion Breakdown</div><div class="section-desc">Booked Amount, Conversion %, COA Contribution %, Booking Contribution % across Jan--Mar 2026</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="dt" id="seg-table"><thead id="seg-thead"></thead><tbody id="seg-tbody"></tbody></table>
+  </div>
+
+  <!-- Propensity table -->
+  <div class="section-hdr" style="margin-top:8px">
+    <div class="section-num" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);width:36px;height:36px;font-size:14px">2a</div>
+    <div><div class="section-title">Propensity-wise Conversion Breakdown</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="dt" id="prop-table"><thead id="prop-thead"></thead><tbody id="prop-tbody"></tbody></table>
+  </div>
+
+  <!-- Micro / Risk Score table -->
+  <div class="section-hdr" style="margin-top:8px">
+    <div class="section-num" style="background:linear-gradient(135deg,#D97706,#B45309);width:36px;height:36px;font-size:14px">2b</div>
+    <div><div class="section-title">Risk Score (MicroFilm) wise Conversion Breakdown</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="dt" id="micro-table"><thead id="micro-thead"></thead><tbody id="micro-tbody"></tbody></table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============ SECTION 4: PB DEEP DIVE ============ -->
+<div class="section" id="pb-deep">
+  <div class="section-hdr">
+    <div class="section-num" style="background:linear-gradient(135deg,#DB2777,#9D174D)">3</div>
+    <div><div class="section-title">PB Segment Deep-dive</div><div class="section-desc">For Previously Booked accounts, Propensity and Risk Score do not significantly impact conversion</div></div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+    <div>
+      <h4>Key Insight: Propensity & Risk Score Don't Matter for PB</h4>
+      <p>When it comes to Previously Booked (PB) accounts, the propensity model score and MicroFilm risk score have minimal impact on conversion. PB accounts convert at a consistently high rate across all propensity and risk buckets -- their past booking behavior is the strongest predictor of future conversion.</p>
+    </div>
+  </div>
+
+  <div class="section-hdr" style="margin-top:8px">
+    <div class="section-num" style="background:linear-gradient(135deg,#DB2777,#9D174D);width:36px;height:36px;font-size:14px">3a</div>
+    <div><div class="section-title">PB: Propensity-wise Conversion</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="dt" id="pb-prop-table"><thead id="pb-prop-thead"></thead><tbody id="pb-prop-tbody"></tbody></table>
+  </div>
+
+  <div class="section-hdr" style="margin-top:8px">
+    <div class="section-num" style="background:linear-gradient(135deg,#DB2777,#9D174D);width:36px;height:36px;font-size:14px">3b</div>
+    <div><div class="section-title">PB: Risk Score (MicroFilm) wise Conversion</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="dt" id="pb-micro-table"><thead id="pb-micro-thead"></thead><tbody id="pb-micro-tbody"></tbody></table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============ SECTION 5: CAMPAIGN PLAN ============ -->
+<div class="section" id="campaign">
+  <div class="section-hdr">
+    <div class="section-num" style="background:linear-gradient(135deg,#D97706,#B45309)">4</div>
+    <div><div class="section-title">OSTOEMI Campaign Plan</div><div class="section-desc">Tiered messaging strategy -- 5 phases from inventory segmentation to trigger-based campaigning</div></div>
+  </div>
+  <div class="frame-wrap"><iframe id="frame-campaign" src="campaign-flowchart.html" scrolling="no"></iframe></div>
+</div>
+
+<hr class="divider">
+
+<!-- ============ SECTION 6: COST SIMULATOR ============ -->
+<div class="section" id="cost">
+  <div class="section-hdr">
+    <div class="section-num" style="background:linear-gradient(135deg,#059669,#065F46)">5</div>
+    <div><div class="section-title">Cost Optimization Simulator</div><div class="section-desc">Interactive cost vs booking curve -- temporal-constrained greedy simulation across segments</div></div>
+  </div>
+  <div class="frame-wrap"><iframe id="frame-cost" src="ostoemi-cost-simulator.html" scrolling="no"></iframe></div>
+</div>
+
+<script>
+// ============ DATA ============
+const D={"months":["202601","202602","202603"],"segment":{"NV":{"202601":{"coa":18579,"ela":1017835391.0,"bc":488,"ba":25499004.08},"202602":{"coa":16569,"ela":930294757.0,"bc":342,"ba":17372556.95},"202603":{"coa":140302,"ela":6960878417.0,"bc":3839,"ba":252028268.81}},"PB":{"202601":{"coa":140403,"ela":6359008991.0,"bc":11573,"ba":455535311.48},"202602":{"coa":145843,"ela":6543188190.0,"bc":10316,"ba":382176318.84},"202603":{"coa":173390,"ela":7989310335.0,"bc":15000,"ba":664740934.32}},"LBCL":{"202601":{"coa":3837,"ela":141758889.0,"bc":395,"ba":16406511.3},"202602":{"coa":3918,"ela":139079347.0,"bc":349,"ba":12810443.75},"202603":{"coa":4014,"ela":143577516.0,"bc":399,"ba":15341409.94}},"LP":{"202601":{"coa":473392,"ela":24164511683.0,"bc":4139,"ba":222866214.32},"202602":{"coa":507031,"ela":25307929502.0,"bc":4109,"ba":204824036.33},"202603":{"coa":464891,"ela":23856743303.0,"bc":4597,"ba":245944910.66}},"HP":{"202601":{"coa":103717,"ela":6763911733.0,"bc":1949,"ba":118151375.09},"202602":{"coa":114663,"ela":7271280563.0,"bc":2471,"ba":135159215.98},"202603":{"coa":110070,"ela":7269195628.0,"bc":3904,"ba":253882473.99}}},"propensity":{"0.0000":{"202601":{"coa":21012,"ela":1125093018.0,"bc":785,"ba":38862946.54},"202602":{"coa":18715,"ela":1021202105.0,"bc":489,"ba":23731526.4},"202603":{"coa":171402,"ela":8224896378.0,"bc":5995,"ba":374169477.7}},"1.0000":{"202601":{"coa":75479,"ela":4274341558.0,"bc":5799,"ba":260580023.55},"202602":{"coa":80514,"ela":4524664991.0,"bc":5423,"ba":239766468.72},"202603":{"coa":80707,"ela":4751091009.0,"bc":7767,"ba":393682673.16}},"2.0000":{"202601":{"coa":59658,"ela":2853825110.0,"bc":3501,"ba":140190401.09},"202602":{"coa":62392,"ela":2910951187.0,"bc":3387,"ba":121618325.61},"202603":{"coa":57742,"ela":2779535408.0,"bc":3922,"ba":157293770.98}},"3.0000":{"202601":{"coa":85468,"ela":5026540481.0,"bc":2818,"ba":121217695.37},"202602":{"coa":92114,"ela":5333110226.0,"bc":2798,"ba":116622251.71},"202603":{"coa":90715,"ela":5458153228.0,"bc":3697,"ba":189739722.49}},"4.0000":{"202601":{"coa":93662,"ela":5961912969.0,"bc":1645,"ba":82535002.58},"202602":{"coa":100961,"ela":6287227418.0,"bc":1516,"ba":70945047.61},"202603":{"coa":97233,"ela":6175371914.0,"bc":2074,"ba":112810945.1}},"5.0000":{"202601":{"coa":96117,"ela":5911926773.0,"bc":1166,"ba":61870197.29},"202602":{"coa":102522,"ela":6158862939.0,"bc":1198,"ba":55969150.92},"202603":{"coa":97588,"ela":5928607520.0,"bc":1378,"ba":72423919.53}},"6.0000":{"202601":{"coa":93518,"ela":5017613662.0,"bc":957,"ba":48716589.11},"202602":{"coa":98897,"ela":5218889305.0,"bc":901,"ba":44101890.89},"202603":{"coa":90889,"ela":4923830840.0,"bc":992,"ba":47572042.06}},"7.0000":{"202601":{"coa":92920,"ela":4396274283.0,"bc":758,"ba":38025560.44},"202602":{"coa":97658,"ela":4569932845.0,"bc":729,"ba":34686407.25},"202603":{"coa":89316,"ela":4283665021.0,"bc":837,"ba":39923551.13}},"8.0000":{"202601":{"coa":66088,"ela":2248316846.0,"bc":533,"ba":22116017.78},"202602":{"coa":70872,"ela":2364297704.0,"bc":526,"ba":20670627.73},"202603":{"coa":64389,"ela":2196415738.0,"bc":501,"ba":20267585.98}},"9.0000":{"202601":{"coa":38530,"ela":1127232387.0,"bc":348,"ba":15086903.57},"202602":{"coa":42819,"ela":1219098414.0,"bc":362,"ba":14902524.77},"202603":{"coa":36661,"ela":1047416319.0,"bc":341,"ba":14171116.17}},"10.0000":{"202601":{"coa":17440,"ela":501976195.0,"bc":226,"ba":8872750.17},"202602":{"coa":20557,"ela":583421329.0,"bc":257,"ba":9285035.64},"202603":{"coa":16024,"ela":450666491.0,"bc":235,"ba":9883193.42}},"13.0000":{"202601":{"coa":36,"ela":1973405.0,"bc":8,"ba":384328.78},"202602":{"coa":3,"ela":113896.0,"bc":1,"ba":43314.6},"202603":{"coa":1,"ela":55333.0,"bc":0,"ba":0.0}}},"micro":{"0":{"202601":{"coa":86207,"ela":2892520529.0,"bc":744,"ba":29951104.67},"202602":{"coa":95859,"ela":3109184578.0,"bc":660,"ba":24632009.35},"202603":{"coa":102781,"ela":3331776568.0,"bc":737,"ba":30188055.79}},"1":{"202601":{"coa":96038,"ela":3916053892.0,"bc":1451,"ba":65084947.96},"202602":{"coa":102720,"ela":4085778932.0,"bc":1419,"ba":56594938.74},"202603":{"coa":106775,"ela":4256637745.0,"bc":1443,"ba":63225839.26}},"2":{"202601":{"coa":97369,"ela":4706614966.0,"bc":1947,"ba":87697024.45},"202602":{"coa":102499,"ela":4898010444.0,"bc":1753,"ba":72686412.64},"202603":{"coa":104833,"ela":4968768444.0,"bc":1750,"ba":72444695.78}},"3":{"202601":{"coa":98681,"ela":5370310199.0,"bc":2313,"ba":108198703.92},"202602":{"coa":102672,"ela":5489791346.0,"bc":2101,"ba":86249094.21},"202603":{"coa":103750,"ela":5586409960.0,"bc":2050,"ba":93266755.83}},"4":{"202601":{"coa":96154,"ela":5693279609.0,"bc":2795,"ba":129818190.66},"202602":{"coa":100058,"ela":5796030571.0,"bc":2429,"ba":103331794.08},"202603":{"coa":99650,"ela":5686116195.0,"bc":2634,"ba":113440314.69}},"5":{"202601":{"coa":92646,"ela":5596908103.0,"bc":3160,"ba":145307596.27},"202602":{"coa":100452,"ela":5918414228.0,"bc":2853,"ba":118864126.14},"202603":{"coa":97066,"ela":5719018838.0,"bc":2957,"ba":136151061.99}},"6":{"202601":{"coa":52844,"ela":3564283854.0,"bc":2000,"ba":88289566.94},"202602":{"coa":56102,"ela":3713127609.0,"bc":1875,"ba":81510951.91},"202603":{"coa":63750,"ela":4046480675.0,"bc":2935,"ba":143332050.89}},"7":{"202601":{"coa":38698,"ela":2639134948.0,"bc":1758,"ba":80877040.86},"202602":{"coa":44205,"ela":2981398109.0,"bc":1883,"ba":89850392.59},"202603":{"coa":52372,"ela":3305867440.0,"bc":3364,"ba":177477200.0}},"BANDSPCL":{"202601":{"coa":6878,"ela":298193082.0,"bc":341,"ba":13797527.73},"202602":{"coa":11649,"ela":581528897.0,"bc":574,"ba":25346766.56},"202603":{"coa":2645,"ela":134472520.0,"bc":95,"ba":4172339.87}},"Unknown":{"202601":{"coa":74413,"ela":3769727505.0,"bc":2035,"ba":89436712.81},"202602":{"coa":71808,"ela":3618507645.0,"bc":2040,"ba":93276085.63},"202603":{"coa":140820,"ela":8121886078.0,"bc":4986,"ba":291913975.19}},"8":{"202603":{"coa":9469,"ela":542582894.0,"bc":2060,"ba":131301862.03}},"9":{"202603":{"coa":8756,"ela":519687842.0,"bc":2728,"ba":175023846.4}}},"pb_propensity":{"0.0000":{"202601":{"coa":1831,"ela":70147505.0,"bc":211,"ba":8822554.46},"202602":{"coa":1647,"ela":59197173.0,"bc":92,"ba":3583801.19},"202603":{"coa":30270,"ela":1237666608.0,"bc":2096,"ba":119709323.36}},"1.0000":{"202601":{"coa":57545,"ela":3072483173.0,"bc":5184,"ba":225635905.66},"202602":{"coa":59138,"ela":3135063630.0,"bc":4570,"ba":192676668.27},"202603":{"coa":60367,"ela":3349250020.0,"bc":6360,"ba":300989799.73}},"2.0000":{"202601":{"coa":34869,"ela":1445216242.0,"bc":2835,"ba":106571372.6},"202602":{"coa":35580,"ela":1440124961.0,"bc":2646,"ba":88721818.63},"202603":{"coa":34313,"ela":1450860027.0,"bc":2979,"ba":108549470.86}},"3.0000":{"202601":{"coa":21727,"ela":778341489.0,"bc":1843,"ba":60123425.31},"202602":{"coa":22733,"ela":824256109.0,"bc":1636,"ba":51147566.34},"202603":{"coa":22001,"ela":830787620.0,"bc":1854,"ba":66552500.92}},"4.0000":{"202601":{"coa":9054,"ela":356562234.0,"bc":679,"ba":23558795.25},"202602":{"coa":9623,"ela":386040290.0,"bc":626,"ba":19558076.03},"202603":{"coa":9775,"ela":416477831.0,"bc":780,"ba":31187642.52}},"5.0000":{"202601":{"coa":5603,"ela":253049830.0,"bc":331,"ba":11429310.71},"202602":{"coa":6225,"ela":279707791.0,"bc":329,"ba":11397542.27},"202603":{"coa":6199,"ela":280982031.0,"bc":402,"ba":16815380.46}},"6.0000":{"202601":{"coa":3982,"ela":181634710.0,"bc":185,"ba":7263909.28},"202602":{"coa":4298,"ela":190625837.0,"bc":149,"ba":6131879.96},"202603":{"coa":4223,"ela":195919971.0,"bc":207,"ba":8898316.44}},"7.0000":{"202601":{"coa":2848,"ela":109510193.0,"bc":112,"ba":5504244.76},"202602":{"coa":3219,"ela":122044291.0,"bc":109,"ba":3808553.89},"202603":{"coa":3143,"ela":129110687.0,"bc":152,"ba":5425752.61}},"8.0000":{"202601":{"coa":1685,"ela":55078973.0,"bc":109,"ba":3387287.0},"202602":{"coa":1917,"ela":61747262.0,"bc":72,"ba":2434716.52},"202603":{"coa":1855,"ela":58874320.0,"bc":78,"ba":2846087.34}},"9.0000":{"202601":{"coa":850,"ela":24183157.0,"bc":45,"ba":1827133.48},"202602":{"coa":994,"ela":29528235.0,"bc":41,"ba":1511238.42},"202603":{"coa":865,"ela":25429690.0,"bc":49,"ba":1552036.32}},"10.0000":{"202601":{"coa":373,"ela":10828080.0,"bc":31,"ba":1027044.19},"202602":{"coa":466,"ela":14738715.0,"bc":45,"ba":1161142.72},"202603":{"coa":378,"ela":13896197.0,"bc":43,"ba":2214623.76}},"13.0000":{"202601":{"coa":36,"ela":1973405.0,"bc":8,"ba":384328.78},"202602":{"coa":3,"ela":113896.0,"bc":1,"ba":43314.6},"202603":{"coa":1,"ela":55333.0,"bc":0,"ba":0.0}}},"pb_micro":{"0":{"202601":{"coa":4695,"ela":143905076.0,"bc":330,"ba":11676248.93},"202602":{"coa":5184,"ela":152590516.0,"bc":271,"ba":8355298.83},"202603":{"coa":5722,"ela":174844777.0,"bc":294,"ba":10784971.81}},"1":{"202601":{"coa":11282,"ela":396715824.0,"bc":771,"ba":28662770.22},"202602":{"coa":12297,"ela":421349121.0,"bc":754,"ba":26788075.01},"202603":{"coa":13425,"ela":488200973.0,"bc":739,"ba":27026319.84}},"2":{"202601":{"coa":16113,"ela":663438834.0,"bc":1136,"ba":43541585.44},"202602":{"coa":17170,"ela":697035354.0,"bc":1032,"ba":36190238.35},"202603":{"coa":18269,"ela":756581358.0,"bc":1004,"ba":36680875.67}},"3":{"202601":{"coa":19878,"ela":887947165.0,"bc":1475,"ba":58435213.56},"202602":{"coa":20811,"ela":924164163.0,"bc":1335,"ba":47407598.8},"202603":{"coa":22012,"ela":1005779801.0,"bc":1269,"ba":49807331.94}},"4":{"202601":{"coa":22433,"ela":1065781100.0,"bc":1819,"ba":74311032.06},"202602":{"coa":23084,"ela":1080705905.0,"bc":1548,"ba":57207688.69},"202603":{"coa":24147,"ela":1135917898.0,"bc":1619,"ba":60600078.13}},"5":{"202601":{"coa":24755,"ela":1186430368.0,"bc":2154,"ba":87222442.34},"202602":{"coa":25934,"ela":1230233895.0,"bc":1871,"ba":69848562.96},"202603":{"coa":26194,"ela":1248186480.0,"bc":1783,"ba":69773153.41}},"6":{"202601":{"coa":15391,"ela":804222768.0,"bc":1490,"ba":59191413.07},"202602":{"coa":13559,"ela":683171284.0,"bc":1253,"ba":46743868.52},"202603":{"coa":19582,"ela":971604246.0,"bc":1832,"ba":72951907.57}},"7":{"202601":{"coa":12400,"ela":652317806.0,"bc":1295,"ba":51624384.64},"202602":{"coa":11808,"ela":611968803.0,"bc":1207,"ba":47953172.57},"202603":{"coa":17225,"ela":840393374.0,"bc":2027,"ba":87950696.82}},"BANDSPCL":{"202601":{"coa":6878,"ela":298193082.0,"bc":341,"ba":13797527.73},"202602":{"coa":11646,"ela":581429780.0,"bc":574,"ba":25346766.56},"202603":{"coa":2641,"ela":134278940.0,"bc":95,"ba":4172339.87}},"Unknown":{"202601":{"coa":6578,"ela":260056968.0,"bc":762,"ba":27072693.49},"202602":{"coa":4350,"ela":160539369.0,"bc":471,"ba":16335048.55},"202603":{"coa":16967,"ela":875075984.0,"bc":1734,"ba":96006839.41}},"8":{"202603":{"coa":3637,"ela":173982705.0,"bc":1137,"ba":61879512.36}},"9":{"202603":{"coa":3569,"ela":184463799.0,"bc":1467,"ba":87106907.49}}}};
+
+const MONTHS=D.months;
+const MLBL={'202601':'Jan 2026','202602':'Feb 2026','202603':'Mar 2026'};
+const SEGC={HP:'#7C3AED',LBCL:'#059669',LP:'#2563EB',NV:'#0891B2',PB:'#DB2777'};
+const PAL=['#2563EB','#7C3AED','#059669','#DC2626','#D97706','#0891B2','#DB2777','#4F46E5','#065F46','#92400E','#164E63','#9D174D'];
+const fCr=v=>(v/1e7).toFixed(2);
+const fP2=v=>v.toFixed(2)+'%';
+const fN=v=>v.toLocaleString('en-IN');
+
+// Sort keys: numeric first ascending, text last
+function sortKeys(keys){
+  keys.sort((a,b)=>{
+    const an=!isNaN(parseFloat(a)),bn=!isNaN(parseFloat(b));
+    if(an&&bn)return parseFloat(a)-parseFloat(b);
+    if(an&&!bn)return -1;
+    if(!an&&bn)return 1;
+    return a.localeCompare(b);
+  });
+}
+
+// ============ SEGMENT TABLE (with COA Contr%, Book Contr%, no COA count, no ELA) ============
+function buildSegTable(){
+  const data=D.segment;
+  const keys=Object.keys(data);
+  // Sort by last month conv desc
+  const lm=MONTHS[MONTHS.length-1];
+  keys.sort((a,b)=>{
+    const ac=data[a][lm]||{ela:0,ba:0},bc_=data[b][lm]||{ela:0,ba:0};
+    return(bc_.ela>0?bc_.ba/bc_.ela:0)-(ac.ela>0?ac.ba/ac.ela:0);
+  });
+
+  // Compute month totals
+  const mt={};
+  MONTHS.forEach(mo=>{mt[mo]={coa:0,ela:0,ba:0,bc:0};keys.forEach(k=>{const d=data[k][mo]||{};mt[mo].coa+=(d.coa||0);mt[mo].ela+=(d.ela||0);mt[mo].ba+=(d.ba||0);mt[mo].bc+=(d.bc||0)})});
+
+  // Header: Segment | [Booked(Cr) | Conv% | COA Contr% | Book Contr%] x months | trends
+  let h1='<tr><th rowspan="2">Segment</th>';
+  let h2='<tr>';
+  MONTHS.forEach(mo=>{h1+=`<th colspan="4" class="ghdr">${MLBL[mo]}</th>`;h2+='<th>Booked (Cr)</th><th>Conv%</th><th>COA Contr%</th><th>Book Contr%</th>'});
+  for(let i=1;i<MONTHS.length;i++) h1+=`<th rowspan="2">${MLBL[MONTHS[i-1]].split(' ')[0]}-&gt;${MLBL[MONTHS[i]].split(' ')[0]}</th>`;
+  h1+='</tr>';h2+='</tr>';
+  document.getElementById('seg-thead').innerHTML=h1+h2;
+
+  const tbody=document.getElementById('seg-tbody');tbody.innerHTML='';
+  const maxConv=15;
+  keys.forEach(k=>{
+    const c=SEGC[k]||'#6B6862';
+    let row=`<td><span class="seg-dot" style="background:${c}"></span>${k}</td>`;
+    const convs=[];
+    MONTHS.forEach(mo=>{
+      const d=data[k][mo]||{coa:0,ela:0,bc:0,ba:0};
+      const conv=d.ela>0?d.ba/d.ela*100:0;convs.push(conv);
+      const coaPct=mt[mo].coa>0?d.coa/mt[mo].coa*100:0;
+      const bookPct=mt[mo].ba>0?d.ba/mt[mo].ba*100:0;
+      row+=`<td>${fCr(d.ba)}</td>`;
+      row+=`<td><div class="conv-cell"><span>${fP2(conv)}</span><div class="bar-bg"><div class="bar-fg" style="width:${Math.min(conv/maxConv*100,100)}%;background:${c}"></div></div></div></td>`;
+      row+=`<td><div class="pct-cell"><span>${coaPct.toFixed(1)}%</span><div class="pct-bar" style="width:${Math.min(coaPct,100)*0.5}px;background:${c}"></div></div></td>`;
+      row+=`<td><div class="pct-cell"><span style="font-weight:600">${bookPct.toFixed(1)}%</span><div class="pct-bar" style="width:${Math.min(bookPct,100)*0.5}px;background:${c}"></div></div></td>`;
+    });
+    for(let i=1;i<MONTHS.length;i++){const d=convs[i]-convs[i-1];row+=`<td class="${d>0?'trend-up':d<0?'trend-down':''}">${d>0?'+':''}${fP2(d)}</td>`}
+    const tr=document.createElement('tr');tr.innerHTML=row;tbody.appendChild(tr);
+  });
+  // Total row
+  let trow='<td style="font-weight:800">TOTAL</td>';const tc=[];
+  MONTHS.forEach(mo=>{const d=mt[mo];const conv=d.ela>0?d.ba/d.ela*100:0;tc.push(conv);trow+=`<td>${fCr(d.ba)}</td><td>${fP2(conv)}</td><td>100.0%</td><td style="font-weight:700">100.0%</td>`});
+  for(let i=1;i<MONTHS.length;i++){const d=tc[i]-tc[i-1];trow+=`<td class="${d>0?'trend-up':d<0?'trend-down':''}" style="font-weight:700">${d>0?'+':''}${fP2(d)}</td>`}
+  const ttr=document.createElement('tr');ttr.className='total-row';ttr.innerHTML=trow;tbody.appendChild(ttr);
+}
+
+// ============ SIMPLE TABLE (propensity/micro/pb variants -- no COA, ELA, COA%, Book%) ============
+function buildSimpleTable(dataKey, theadId, tbodyId, label){
+  const data=D[dataKey];
+  const keys=Object.keys(data);
+  sortKeys(keys);
+
+  const mt={};
+  MONTHS.forEach(mo=>{mt[mo]={ela:0,ba:0};keys.forEach(k=>{const d=data[k][mo]||{};mt[mo].ela+=(d.ela||0);mt[mo].ba+=(d.ba||0)})});
+
+  // Header: Label | [Booked(Cr) | Conv%] x months | trends
+  let h1=`<tr><th rowspan="2">${label}</th>`;
+  let h2='<tr>';
+  MONTHS.forEach(mo=>{h1+=`<th colspan="2" class="ghdr">${MLBL[mo]}</th>`;h2+='<th>Booked (Cr)</th><th>Conv%</th>'});
+  for(let i=1;i<MONTHS.length;i++) h1+=`<th rowspan="2">${MLBL[MONTHS[i-1]].split(' ')[0]}-&gt;${MLBL[MONTHS[i]].split(' ')[0]}</th>`;
+  h1+='</tr>';h2+='</tr>';
+  document.getElementById(theadId).innerHTML=h1+h2;
+
+  const tbody=document.getElementById(tbodyId);tbody.innerHTML='';
+  const maxConv=15;
+  keys.forEach((k,ki)=>{
+    const c=PAL[ki%PAL.length];
+    const displayK=!isNaN(parseFloat(k))?String(Math.round(parseFloat(k))):k;
+    let row=`<td><span class="seg-dot" style="background:${c}"></span>${displayK}</td>`;
+    const convs=[];
+    MONTHS.forEach(mo=>{
+      const d=data[k][mo]||{ela:0,ba:0};
+      const conv=d.ela>0?d.ba/d.ela*100:0;convs.push(conv);
+      row+=`<td>${fCr(d.ba)}</td>`;
+      row+=`<td><div class="conv-cell"><span>${fP2(conv)}</span><div class="bar-bg"><div class="bar-fg" style="width:${Math.min(conv/maxConv*100,100)}%;background:${c}"></div></div></div></td>`;
+    });
+    for(let i=1;i<MONTHS.length;i++){const d=convs[i]-convs[i-1];row+=`<td class="${d>0?'trend-up':d<0?'trend-down':''}">${d>0?'+':''}${fP2(d)}</td>`}
+    const tr=document.createElement('tr');tr.innerHTML=row;tbody.appendChild(tr);
+  });
+  // Total
+  let trow=`<td style="font-weight:800">TOTAL</td>`;const tc=[];
+  MONTHS.forEach(mo=>{const d=mt[mo];const conv=d.ela>0?d.ba/d.ela*100:0;tc.push(conv);trow+=`<td>${fCr(d.ba)}</td><td>${fP2(conv)}</td>`});
+  for(let i=1;i<MONTHS.length;i++){const d=tc[i]-tc[i-1];trow+=`<td class="${d>0?'trend-up':d<0?'trend-down':''}" style="font-weight:700">${d>0?'+':''}${fP2(d)}</td>`}
+  const ttr=document.createElement('tr');ttr.className='total-row';ttr.innerHTML=trow;tbody.appendChild(ttr);
+}
+
+// ============ RENDER ALL ============
+buildSegTable();
+buildSimpleTable('propensity','prop-thead','prop-tbody','Propensity');
+buildSimpleTable('micro','micro-thead','micro-tbody','Risk Score');
+buildSimpleTable('pb_propensity','pb-prop-thead','pb-prop-tbody','Propensity (PB)');
+buildSimpleTable('pb_micro','pb-micro-thead','pb-micro-tbody','Risk Score (PB)');
+
+// ============ IFRAME AUTO-RESIZE ============
+function resizeFrame(f){
+  try{const doc=f.contentDocument||f.contentWindow.document;f.style.height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight)+'px'}catch(e){f.style.height='3000px'}
+}
+document.querySelectorAll('iframe').forEach(f=>{
+  f.addEventListener('load',()=>{
+    try{const doc=f.contentDocument||f.contentWindow.document;const hdr=doc.querySelector('.header');if(hdr)hdr.style.display='none';const main=doc.querySelector('.main');if(main)main.style.paddingTop='8px'}catch(e){}
+    resizeFrame(f);
+  });
+});
+setInterval(()=>document.querySelectorAll('iframe').forEach(resizeFrame),500);
+
+// Smooth scroll nav
+document.querySelectorAll('.nav-link').forEach(l=>{
+  l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})});
+});
+</script>
+</body>
+</html>
